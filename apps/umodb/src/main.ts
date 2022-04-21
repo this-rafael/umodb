@@ -5,7 +5,7 @@ import {
 } from '@nestjs/platform-fastify'
 import { ServerResponse } from 'node:http'
 import { PrismaConnector } from './adapter/connector/prisma.connector'
-import { AppModule } from './app.module'
+import { AppModule } from './infra/app.module'
 
 export const configureFastify = (fastifyAdapter: FastifyAdapter): void => {
   const fastifyInstanceNew = fastifyAdapter.getInstance()
@@ -36,9 +36,6 @@ async function bootstrap(): Promise<void> {
     AppModule,
     fastifyAdapter,
   )
-
-  const prismaService: PrismaConnector = app.get(PrismaConnector)
-  await prismaService.enableShutdownHooks(app)
 
   await app.listen(3000)
 }

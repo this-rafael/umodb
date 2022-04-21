@@ -1,0 +1,11 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type HasRegisteredObjectType {
+  registered: Boolean!
+}
+
+type Query {
+  emailHasRegistered: HasRegisteredObjectType!
+}

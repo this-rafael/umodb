@@ -5,7 +5,11 @@
   "root": "apps/umodb",
   "compilerOptions": {
     "webpack": true,
-    "tsConfigPath": "apps/umodb/tsconfig.app.json"
+    "tsConfigPath": "apps/umodb/tsconfig.app.json",
+    "assets": [
+      "**/*.graphql"
+    ],
+    "watchAssets": true
   },
   "projects": {
     "umodb": {
@@ -14,7 +18,11 @@
       "entryFile": "main",
       "sourceRoot": "apps/umodb/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/umodb/tsconfig.app.json"
+        "tsConfigPath": "apps/umodb/tsconfig.app.json",
+        "assets": [
+          "**/*.graphql"
+        ],
+        "watchAssets": true
       }
     },
     "people_microservice": {
@@ -24,6 +32,7 @@
       "sourceRoot": "apps/people_microservice/src",
       "compilerOptions": {
         "tsConfigPath": "apps/people_microservice/tsconfig.app.json"
+        
       }
     },
     "movie_microservice": {

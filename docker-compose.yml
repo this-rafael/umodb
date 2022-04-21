@@ -41,18 +41,28 @@ services:
     ports:
       - '9001:9000'
   postgres:
-    container_name: umodb_postgres
+    container_name: people_db
     image: postgres:14-alpine3.15
     networks:
       - webnet
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${PEOPLE_DB_PASSWORD}
+      POSTGRES_USER: ${PEOPLE_DB_USERNAME}
+      POSTGRES_DB: ${PEOPLE_DB_NAME}
     ports:
       - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
+  mysql8.0:
+    image: mysql:8.0
+    container_name: movie_db
+    ports:
+      - 3380:3306
+    environment:
+      - MYSQL_DATABASE=${MOVIE_DB_NAME}
+      - MYSQL_USER=${MOVIE_DB_USER}
+      - MYSQL_PASSWORD=${MOVIE_DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MOVIE_DB_ROOT_PASSWORD}
 networks:
   webnet:
 volumes:
