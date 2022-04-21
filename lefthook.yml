@@ -29,8 +29,8 @@ pre-push:
       files: git diff --name-only HEAD origin/develop
       glob: '*.ts'
       run: eslint --fix {files} --format table
-    2_test:
-      run: pnpm test
+    # 2_test:
+    #   run: pnpm test
     3_prettier:
       files: git diff --name-only HEAD origin/develop
       glob: '*.ts'
