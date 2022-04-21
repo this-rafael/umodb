@@ -1,0 +1,50 @@
+# commit-msg:
+#   commands:
+#     commit-lint:
+#       run: pnpm commitlint -e
+# pre-commit:
+#   piped: true
+#   parallel: false
+#   commands:
+#     1_eslint:
+#       files: git diff --name-only --staged
+#       glob: '*.ts'
+#       run: eslint --fix {files} --format table
+#     2_prettier:
+#       files: git diff --name-only --staged
+#       glob: '*.ts'
+#       run: prettier --write {files}
+#     3_git:
+#       files: git diff --name-only --staged
+#       glob: '*.ts'
+#       run: git add {files}
+#     4_show_message:
+#       run: echo "Commit Realizado!"
+    
+# pre-push:
+#   piped: true
+#   parallel: false
+#   commands:
+#     1_eslint:
+#       files: git diff --name-only HEAD origin/develop
+#       glob: '*.ts'
+#       run: eslint --fix {files} --format table
+#     2_test:
+#       run: pnpm test
+#     3_prettier:
+#       files: git diff --name-only HEAD origin/develop
+#       glob: '*.ts'
+#       run: prettier --write {files} && git add {files}
+#     4_git:
+#       files: git diff --name-only HEAD origin/develop
+#       glob: '*.ts'
+#       run: git add {files}
+#     5_show_message:
+#       run: echo "Push Realizado!"
+# post-merge:
+#   parallel: false
+#   commands:
+#     install-dependencies: 
+#       run: pnpm i
+#     tsdoc:
+#       run: pnpm typedoc --entryPointStrategy expand ./src --darkHighlightTheme dark-plus

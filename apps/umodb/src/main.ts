@@ -1,8 +1,45 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { NestFactory } from '@nestjs/core'
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify'
+import { ServerResponse } from 'node:http'
+import { PrismaConnector } from './adapter/connector/prisma.connector'
+import { AppModule } from './app.module'
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+export const configureFastify = (fastifyAdapter: FastifyAdapter): void => {
+  const fastifyInstanceNew = fastifyAdapter.getInstance()
+  fastifyInstanceNew.addHook('onRequest', (_, reply, done) => {
+    const newReply = {
+      setHeader(
+        name: string,
+        value: number | string | ReadonlyArray<string>,
+      ): ServerResponse {
+        return this.raw.setHeader(name, value)
+      },
+
+      end(): void {
+        this.raw.end()
+      },
+      ...reply,
+    }
+
+    Object.assign(reply, newReply)
+    done()
+  })
 }
-bootstrap();
+
+async function bootstrap(): Promise<void> {
+  const fastifyAdapter = new FastifyAdapter()
+  configureFastify(fastifyAdapter)
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    fastifyAdapter,
+  )
+
+  const prismaService: PrismaConnector = app.get(PrismaConnector)
+  await prismaService.enableShutdownHooks(app)
+
+  await app.listen(3000)
+}
+bootstrap()
