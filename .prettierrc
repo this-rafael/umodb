@@ -8,11 +8,5 @@
   "bracketSpacing": true,
   "arrowParens": "avoid",
   "requirePragma": false,
-  "insertPragma": false,
-  "prettier/prettier": [
-    "error",
-    {
-      "endOfLine": "all"
-    }
-  ]
+  "insertPragma": false
 }
