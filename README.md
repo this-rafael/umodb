@@ -1,0 +1,72 @@
+## U.M.O.D.B
+
+## Universal Movie Opinion Database
+
+### Objetivo:
+
+Promover uma aplicação para classificação de filmes.
+
+## Funcionalidades
+
+### Como operador do sistema eu posso me cadastrar no sistema e gerenciar meus dados.
+
+Cada operador do sistema, tem nome email e senha
+
+### Como operador do sistema eu posso cadastrar e atualizar filmes
+
+Cada filme tem um titulo, autor, produtora, e uma lista de atores
+
+### Como operador do sistema eu posso cadastrar atores
+
+Cada ator tem um nome e uma data de nascimento
+
+### Como operador do sistema eu posso cadastrar plataformas onde se passam os filmes
+
+Cada plataforma tem o seu nome e uma lista de filmes
+
+### Como operador do sistema eu posso remover um filme do catalogo de uma plataforma
+
+### Como cliente eu posso me cadastrar no sistema e gerenciar meus dados.
+
+Cada cliente tem nome, email, senha, genero e data de nascimento
+
+### Como cliente eu posso gostar ou deixar de gostar de um filme.
+
+### Como cliente eu posso classificar o filme de 1 a 5 estrelas
+
+### Como o cliente eu posso editar minha classificação ou apaga-la
+
+### Como cliente eu posso listar resenhas já feitas em um determinado filme
+
+Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha e uma classificação de 1 a 5 sobre a resenha
+
+### Como cliente eu posso escrever uma resenha de um filme ou edita-la.
+
+Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha e uma classificação de 1 a 5 sobre a resenha
+
+### Como cliente eu posso responder (escrever o comentario) sobre resenhas já feitas em um filme
+
+Cada comentario tem uma descrição, e o nome do criador
+
+### Como cliente eu posso editar um comentario feito feito sobre uma resenha
+
+### Como cliente eu posso avaliar (e editar a avaliação feita a) uma resenha
+
+A avaliação é um numero de 1 a 5, deve referenciar o criador da avaliação
+
+### Como cliente eu posso ler avaliações completas sobre um filme
+
+A avaliação completa tem:
+
+- Um titulo
+- Nome da produtora
+- Descrição breve
+- Uma lista de elemementos cada um destes elementos representa um ator ( que foi avaliado ) e uma avaliação de 1 a 10 sobre o ator naquele filme
+- Uma seção de topicos de avalição sobre o filme, onde cada topico será representado por:
+  - Titulo do topico, Exemplo: direção
+  - Uma avalição de 1 a 5 sobre o topico
+  - Uma descrição sobre os pontos positivos (opcional)
+  - Uma descrição sobre os pontos negativos (opcional)
+- Uma avaliação geral, calculada automaticamente pela formula: SOMATORIO_DAS_AVALIACOES_NOS_TOPICOS / QUANTIDADE_DE_TOPICOS
+
+### Como cliente eu posso escrever avaliações completas sobre um filme

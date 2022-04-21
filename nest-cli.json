@@ -1,0 +1,39 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/umodb/src",
+  "monorepo": true,
+  "root": "apps/umodb",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/umodb/tsconfig.app.json"
+  },
+  "projects": {
+    "umodb": {
+      "type": "application",
+      "root": "apps/umodb",
+      "entryFile": "main",
+      "sourceRoot": "apps/umodb/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/umodb/tsconfig.app.json"
+      }
+    },
+    "people_microservice": {
+      "type": "application",
+      "root": "apps/people_microservice",
+      "entryFile": "main",
+      "sourceRoot": "apps/people_microservice/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/people_microservice/tsconfig.app.json"
+      }
+    },
+    "movie_microservice": {
+      "type": "application",
+      "root": "apps/movie_microservice",
+      "entryFile": "main",
+      "sourceRoot": "apps/movie_microservice/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/movie_microservice/tsconfig.app.json"
+      }
+    }
+  }
+}
