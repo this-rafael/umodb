@@ -1,0 +1,24 @@
+{
+  "outputsFolders": [
+      {
+          "classType": "InputType",
+          "outputFolder": "/src/infra/graphql/dtos"
+      },
+      {
+          "classType": "ObjectType",
+          "outputFolder": "/src/infra/graphql/dtos/"
+      },
+      {
+          "classType": "ArgsType",
+          "outputFolder": "/src/infra/graphql/dtos/args/"
+      },
+      {
+          "classType": "Model",
+          "outputFolder": "/src/core/models/"
+      },
+      {
+          "classType": "ErrorResponse",
+          "outputFolder": "/src/core/error-response/"
+      }
+  ]
+}
