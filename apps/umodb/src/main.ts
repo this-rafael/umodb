@@ -5,7 +5,7 @@ import {
 } from '@nestjs/platform-fastify'
 import { ServerResponse } from 'node:http'
 import { PrismaConnector } from './adapter/connector/prisma.connector'
-import { AppModule } from './infra/app.module'
+import { AppModule } from './infra/nestjs/app.module'
 
 export const configureFastify = (fastifyAdapter: FastifyAdapter): void => {
   const fastifyInstanceNew = fastifyAdapter.getInstance()
