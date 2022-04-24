@@ -46,18 +46,18 @@ Cada review tem o nome do ator, o nome do filme, uma descrição de texto e o au
 
 ### Como cliente eu posso listar resenhas já feitas em um determinado filme
 
-Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha e uma classificação de 1 a 5 sobre a resenha
+Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha 
 
 ### Como cliente eu posso escrever uma resenha de um filme ou edita-la.
 
-Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha e uma classificação de 1 a 5 sobre a resenha
+Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha
 
 ### Como cliente eu posso responder (escrever o comentario) sobre resenhas já feitas em um filme
 
 Cada comentario tem uma descrição, e o nome do criador
 
 ### Como cliente eu posso editar um comentario feito feito sobre uma resenha
-
+  
 ### Como cliente eu posso avaliar (e editar a avaliação feita a) uma resenha
 
 A avaliação é um numero de 1 a 5, deve referenciar o criador da avaliação
