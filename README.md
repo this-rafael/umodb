@@ -34,7 +34,15 @@ Cada cliente tem nome, email, senha, genero e data de nascimento
 
 ### Como cliente eu posso classificar o filme de 1 a 5 estrelas
 
+
+
 ### Como o cliente eu posso editar minha classificação ou apaga-la
+
+
+### Como cliente eu posso ver as reviews feitas a um ator dentro de um filme
+Cada review tem o nome do ator, o nome do filme, uma descrição de texto e o autor daquela postagem
+### Como cliente eu posso criar e editar uma review sobre um ator:
+
 
 ### Como cliente eu posso listar resenhas já feitas em um determinado filme
 
@@ -59,14 +67,13 @@ A avaliação é um numero de 1 a 5, deve referenciar o criador da avaliação
 A avaliação completa tem:
 
 - Um titulo
-- Nome da produtora
 - Descrição breve
-- Uma lista de elemementos cada um destes elementos representa um ator ( que foi avaliado ) e uma avaliação de 1 a 10 sobre o ator naquele filme
+- Uma descrição sobre os pontos positivos (opcional)
+- Uma descrição sobre os pontos negativos (opcional)
 - Uma seção de topicos de avalição sobre o filme, onde cada topico será representado por:
   - Titulo do topico, Exemplo: direção
   - Uma avalição de 1 a 5 sobre o topico
-  - Uma descrição sobre os pontos positivos (opcional)
-  - Uma descrição sobre os pontos negativos (opcional)
+ 
 - Uma avaliação geral, calculada automaticamente pela formula: SOMATORIO_DAS_AVALIACOES_NOS_TOPICOS / QUANTIDADE_DE_TOPICOS
 
 ### Como cliente eu posso escrever avaliações completas sobre um filme

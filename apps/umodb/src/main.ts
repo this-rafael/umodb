@@ -9,24 +9,28 @@ import { AppModule } from './infra/app.module'
 
 export const configureFastify = (fastifyAdapter: FastifyAdapter): void => {
   const fastifyInstanceNew = fastifyAdapter.getInstance()
-  fastifyInstanceNew.addHook('onRequest', (_, reply, done) => {
-    const newReply = {
-      setHeader(
-        name: string,
-        value: number | string | ReadonlyArray<string>,
-      ): ServerResponse {
-        return this.raw.setHeader(name, value)
-      },
+  fastifyInstanceNew.addHook(
+    'onRequest',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (_: unknown, reply: any, done: any) => {
+      const newReply = {
+        setHeader(
+          name: string,
+          value: number | string | ReadonlyArray<string>,
+        ): ServerResponse {
+          return this.raw.setHeader(name, value)
+        },
 
-      end(): void {
-        this.raw.end()
-      },
-      ...reply,
-    }
+        end(): void {
+          this.raw.end()
+        },
+        ...reply,
+      }
 
-    Object.assign(reply, newReply)
-    done()
-  })
+      Object.assign(reply, newReply)
+      done()
+    },
+  )
 }
 
 async function bootstrap(): Promise<void> {
