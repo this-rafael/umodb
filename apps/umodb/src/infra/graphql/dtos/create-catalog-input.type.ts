@@ -1,6 +1,4 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { MovieObjectType } from './movie.object-type'
-import { OperatorObjectType } from './operator.object-type'
 
 export type CreateCatalogObjectTypeBuilder = {
   fkStreamPlataform: { externalId: string }
