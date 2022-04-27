@@ -4,8 +4,8 @@ import { OperatorObjectType } from './operator.object-type'
 import { StreamPlataformObjectType } from './stream-plataform.object-type'
 
 export type CatalogObjectTypeBuilder = {
-  fkStreamPlataform: Partial<StreamPlataformObjectType> & { externalId: string }
-  fkMovie: Partial<MovieObjectType> & { externalId: string }
+  streamPlataform: Partial<StreamPlataformObjectType> & { externalId: string }
+  movie: Partial<MovieObjectType> & { externalId: string }
   createdAt: Date
   updatedAt: Date
   addedBy: Partial<OperatorObjectType> & { externalId: string }
@@ -15,12 +15,12 @@ export type CatalogObjectTypeBuilder = {
 @ObjectType()
 export class CatalogObjectType {
   @Field()
-  public readonly fkStreamPlataform!: Partial<StreamPlataformObjectType> & {
+  public readonly streamPlataform!: Partial<StreamPlataformObjectType> & {
     externalId: string
   }
 
   @Field()
-  public readonly fkMovie!: Partial<MovieObjectType> & { externalId: string }
+  public readonly movie!: Partial<MovieObjectType> & { externalId: string }
 
   @Field()
   public readonly createdAt!: Date
@@ -50,8 +50,8 @@ export class CatalogObjectType {
 
   copyWith(other: Partial<CatalogObjectTypeBuilder>): CatalogObjectType {
     return new CatalogObjectType({
-      fkStreamPlataform: other.fkStreamPlataform ?? this.fkStreamPlataform,
-      fkMovie: other.fkMovie ?? this.fkMovie,
+      streamPlataform: other.streamPlataform ?? this.streamPlataform,
+      movie: other.movie ?? this.movie,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,
       addedBy: other.addedBy ?? this.addedBy,
