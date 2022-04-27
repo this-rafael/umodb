@@ -1,9 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type UpdateActorInputTypeBuilder = {
   name?: string
   birthday?: Date
-  editedBy?: { externalId: string }
+  editedBy: { externalId: string }
 }
 
 @InputType()
@@ -14,8 +15,8 @@ export class UpdateActorInputType {
   @Field()
   public readonly birthday?: Date
 
-  @Field()
-  public readonly editedBy?: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly editedBy!: { externalId: string }
 
   constructor(builder: UpdateActorInputTypeBuilder) {
     Object.assign(this, builder)
