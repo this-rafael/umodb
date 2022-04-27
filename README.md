@@ -14,7 +14,7 @@ Cada operador do sistema, tem nome email e senha
 
 ### Como operador do sistema eu posso cadastrar e atualizar filmes
 
-Cada filme tem um titulo, autor, produtora, e uma lista de atores
+Cada filme tem um titulo, autor, plataforma de stream, e uma lista de atores
 
 ### Como operador do sistema eu posso cadastrar atores
 

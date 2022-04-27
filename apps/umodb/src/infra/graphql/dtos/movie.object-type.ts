@@ -28,10 +28,10 @@ export class MovieObjectType {
   @Field()
   public readonly authorName!: string
 
-  @Field()
+  @Field(() => OperatorObjectType)
   public readonly addedBy!: Partial<OperatorObjectType> & { externalId: string }
 
-  @Field()
+  @Field(() => OperatorObjectType)
   public readonly editedBy!: Partial<OperatorObjectType> & {
     externalId: string
   }

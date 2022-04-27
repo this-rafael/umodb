@@ -6,8 +6,9 @@ export type ActorObjectTypeBuilder = {
   createdAt: Date
   updatedAt: Date
   name: string
+  birthday: Date
   addedBy: Partial<OperatorObjectType> & { externalId: string }
-  editedBy: Partial<OperatorObjectType>
+  editedBy: Partial<OperatorObjectType> & { externalId: string }
 }
 
 @ObjectType()
@@ -22,12 +23,15 @@ export class ActorObjectType {
   public readonly updatedAt!: Date
 
   @Field()
+  public readonly birthday!: Date
+
+  @Field()
   public readonly name!: string
 
-  @Field()
+  @Field(() => OperatorObjectType)
   public readonly addedBy!: Partial<OperatorObjectType> & { externalId: string }
 
-  @Field()
+  @Field(() => OperatorObjectType)
   public readonly editedBy!: Partial<OperatorObjectType> & {
     externalId: string
   }
@@ -46,6 +50,7 @@ export class ActorObjectType {
 
   copyWith(other: Partial<ActorObjectTypeBuilder>): ActorObjectType {
     return new ActorObjectType({
+      birthday: other.birthday ?? this.birthday,
       externalId: other.externalId ?? this.externalId,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,
