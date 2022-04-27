@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 import { OperatorObjectType } from './operator.object-type'
 
 export type CreateActorInputTypeBuilder = {
@@ -15,7 +16,7 @@ export class CreateActorInputType {
   @Field()
   public readonly birthday!: Date
 
-  @Field()
+  @Field(() => ExternalIdInputType)
   public readonly addedBy!: { externalId: string }
 
   constructor(builder: CreateActorInputTypeBuilder) {
