@@ -1,7 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { CreateMovieScoreInputType } from '../dtos/create-movie-score.input-type'
 import { CreateMovieInputType } from '../dtos/create-movie.input-type'
 import { ExternalIdInputType } from '../dtos/external-id.input-type'
+import { MovieScoreObjectType } from '../dtos/movie-score.object-type'
 import { MovieObjectType } from '../dtos/movie.object-type'
+import { UpdateMovieScoreInputType } from '../dtos/update-movie-score.input-type'
 import { UpdateMovieInputType } from '../dtos/update-movie.input-type'
 
 @Resolver()
@@ -69,6 +72,46 @@ export class MovieResolver {
       title: '',
       updatedAt: new Date(),
       editedBy: { externalId: '123' },
+    })
+  }
+
+  @Mutation()
+  async addScoreMovie(
+    @Args('score') score: CreateMovieScoreInputType,
+  ): Promise<MovieScoreObjectType> {
+    console.log(score)
+
+    return new MovieScoreObjectType({
+      createdAt: new Date(),
+      customer: {
+        externalId: '123',
+      },
+      externalId: '123',
+      movie: {
+        externalId: '123',
+      },
+      score: 5,
+      updatedAt: new Date(),
+    })
+  }
+
+  @Mutation()
+  async editScoreMovie(
+    @Args('score') score: UpdateMovieScoreInputType,
+  ): Promise<MovieScoreObjectType> {
+    console.log(score)
+
+    return new MovieScoreObjectType({
+      createdAt: new Date(),
+      customer: {
+        externalId: '123',
+      },
+      externalId: '123',
+      movie: {
+        externalId: '123',
+      },
+      score: 5,
+      updatedAt: new Date(),
     })
   }
 }

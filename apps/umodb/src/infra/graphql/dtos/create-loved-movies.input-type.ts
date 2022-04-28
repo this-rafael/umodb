@@ -1,16 +1,12 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 export type CreateLovedMoviesInputTypeBuilder = {
-  externalId: string
   movie: { externalId: string }
   lovedBy: { externalId: string }
 }
 
 @InputType()
 export class CreateLovedMoviesInputType {
-  @Field()
-  externalId!: string
-
   @Field()
   movie!: { externalId: string }
 
@@ -33,7 +29,6 @@ export class CreateLovedMoviesInputType {
     other: Partial<CreateLovedMoviesInputTypeBuilder>,
   ): CreateLovedMoviesInputType {
     return new CreateLovedMoviesInputType({
-      externalId: other.externalId ?? this.externalId,
       movie: other.movie ?? this.movie,
       lovedBy: other.lovedBy ?? this.lovedBy,
     })
