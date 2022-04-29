@@ -7,6 +7,7 @@ import { FullMovieReviewObjectType } from '../dtos/full-movie-review.object-type
 import { MovieInfoByCustumerObjectType } from '../dtos/movie-info-by-customer.object-type'
 import { MovieScoreObjectType } from '../dtos/movie-score.object-type'
 import { MovieObjectType } from '../dtos/movie.object-type'
+import { BasicReviewObjectType } from '../dtos/review.object-type'
 import { UpdateMovieScoreInputType } from '../dtos/update-movie-score.input-type'
 import { UpdateMovieInputType } from '../dtos/update-movie.input-type'
 
@@ -157,24 +158,20 @@ export class MovieResolver {
   @Query(() => [FullMovieReviewObjectType])
   async getFullMovieReview(
     @Args('movieId') movieId: ExternalIdInputType,
-  ): Promise<FullMovieReviewObjectType[]> {
+  ): Promise<BasicReviewObjectType[]> {
     console.log(movieId)
 
     return [
-      new FullMovieReviewObjectType({
+      new BasicReviewObjectType({
         movie: {
           externalId: '123',
         },
         createdAt: new Date(),
         externalId: '123',
-        negativePoints: 'sdsadsaasd',
-        positivePoints: 'sdsadsaasd',
-        title: 'OLOLOLO',
-        reviewDescription: 'xpto',
+        title: 'admsadlkdsa',
+        customer: { externalId: '1231' },
+        description: 'OLOLOLO',
         updatedAt: new Date(),
-        reviewer: {
-          externalId: '1',
-        },
       }),
     ]
   }

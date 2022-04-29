@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { CustomerObjectType } from './customer.object-type'
-import { ReviewObjectType } from './review.object-type'
+import { BasicReviewObjectType } from './review.object-type'
 
 export type ReviewEvaluationObjectTypeBuilder = {
   externalId: string
@@ -8,7 +8,7 @@ export type ReviewEvaluationObjectTypeBuilder = {
   updatedAt: Date
   evaluation: number
   evaluatedBy: Partial<CustomerObjectType> & { externalId: string }
-  commentOn: Partial<ReviewObjectType> & { externalId: string }
+  commentOn: Partial<BasicReviewObjectType> & { externalId: string }
 }
 
 @ObjectType()
@@ -28,8 +28,8 @@ export class ReviewEvaluationObjectType {
   @Field(() => CustomerObjectType)
   evaluatedBy!: CustomerObjectType
 
-  @Field(() => ReviewObjectType)
-  commentOn!: Partial<ReviewObjectType> & { externalId: string }
+  @Field(() => BasicReviewObjectType)
+  commentOn!: Partial<BasicReviewObjectType> & { externalId: string }
 
   constructor(builder: ReviewEvaluationObjectTypeBuilder) {
     Object.assign(this, builder)

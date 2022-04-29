@@ -88,6 +88,16 @@ type MovieScoreObjectType {
   movie: MovieObjectType!
 }
 
+type BasicReviewObjectType {
+  externalId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String!
+  customer: CustomerObjectType!
+  movie: MovieObjectType!
+}
+
 type LovedMoviesObjectType {
   externalId: String!
   movie: MovieObjectType!
@@ -118,6 +128,9 @@ type Mutation {
   toggleLoveMovie(loveMovie: CreateLovedMoviesInputType!): LovedMoviesObjectType!
   editActorReview(review: CreateActorReviewInput!): ActorReviewObjectType!
   addActorReview(review: UpdateActorInputType!): ActorReviewObjectType!
+  addMovieReview(review: CreateBasicMovieReviewInputType!): BasicReviewObjectType!
+  editMovieReview(review: UpdateBasicMovieReviewInputType!): BasicReviewObjectType!
+  commentMovieReview(commend: CreateCommentOfReviewInputType!): BasicReviewObjectType!
 }
 
 input CreateOperatorInputType {
@@ -181,4 +194,25 @@ input UpdateActorInputType {
   name: String!
   birthday: DateTime!
   editedBy: ExternalIdInputType!
+}
+
+input CreateBasicMovieReviewInputType {
+  title: String!
+  description: String!
+  customer: ExternalIdInputType!
+  movie: ExternalIdInputType!
+}
+
+input UpdateBasicMovieReviewInputType {
+  title: String!
+  description: String!
+  customer: ExternalIdInputType!
+  movie: ExternalIdInputType!
+}
+
+input CreateCommentOfReviewInputType {
+  content: String!
+  review: ExternalIdInputType!
+  commentedBy: ExternalIdInputType!
+  commentOn: ExternalIdInputType!
 }

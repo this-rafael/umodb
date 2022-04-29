@@ -1,14 +1,23 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ActorReviewObjectType } from '../dtos/actor-review.object-type'
+import {
+  CommentOnReviewObjectType,
+  CommentOnReviewInputTypeBuilder,
+} from '../dtos/comment-of-review.object-type'
 import { CreateActorReviewInput } from '../dtos/create-actor-review.input-type'
+import {
+  CreateBasicMovieReviewInputType,
+  CreateBasicMovieReviewInputTypeBuilder,
+} from '../dtos/create-basic-movie-review.input-type'
+import { CreateCommentOfReviewInputType } from '../dtos/create-comment-of-review.input-type'
 import { CreateCustomerInputType } from '../dtos/create-customer.input.type'
 import { CreateLovedMoviesInputType } from '../dtos/create-loved-movies.input-type'
-
 import { CustomerObjectType } from '../dtos/customer.object-type'
 import { ExternalIdInputType } from '../dtos/external-id.input-type'
 import { LovedMoviesObjectType } from '../dtos/loved-movies.object-type'
-import { MovieInfoByCustumerObjectType } from '../dtos/movie-info-by-customer.object-type'
+import { BasicReviewObjectType } from '../dtos/review.object-type'
 import { UpdateActorInputType } from '../dtos/update-actor.input-type'
+import { UpdateBasicMovieReviewInputType } from '../dtos/update-basic-movie-review.input-type'
 
 @Resolver()
 export class CustomerResolver {
@@ -96,6 +105,69 @@ export class CustomerResolver {
       reviewer: {
         externalId: '1',
       },
+    })
+  }
+
+  @Mutation(() => BasicReviewObjectType)
+  async addMovieReview(
+    @Args('review') review: CreateBasicMovieReviewInputType,
+  ): Promise<BasicReviewObjectType> {
+    console.log(review)
+
+    return new BasicReviewObjectType({
+      externalId: '123',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: 'Rafael',
+      description: 'Rafael',
+      customer: {
+        externalId: '123',
+      },
+      movie: {
+        externalId: '123',
+      },
+    })
+  }
+
+  @Mutation(() => BasicReviewObjectType)
+  async editMovieReview(
+    @Args('review') review: UpdateBasicMovieReviewInputType,
+  ): Promise<BasicReviewObjectType> {
+    console.log(review)
+
+    return new BasicReviewObjectType({
+      externalId: '123',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: 'Rafael',
+      description: 'Rafael',
+      customer: {
+        externalId: '123',
+      },
+      movie: {
+        externalId: '123',
+      },
+    })
+  }
+
+  @Mutation(() => BasicReviewObjectType)
+  async commentMovieReview(
+    @Args('commend') review: CreateCommentOfReviewInputType,
+  ): Promise<CommentOnReviewObjectType> {
+    console.log(review)
+
+    return new CommentOnReviewObjectType({
+      externalId: '123',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: 'Rafael',
+      commentOn: {
+        externalId: '123',
+      },
+      commentedBy: {
+        externalId: '123',
+      },
+      description: 'Rafael',
     })
   }
 }
