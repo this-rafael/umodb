@@ -1,4 +1,4 @@
-import { Query, Args, InputType, Mutation, Resolver } from '@nestjs/graphql'
+import { Query, Args, Mutation, Resolver } from '@nestjs/graphql'
 import { CreateOperatorInputType } from '../dtos/create-operator.input-type'
 import { ExternalIdInputType } from '../dtos/external-id.input-type'
 import { OperatorObjectType } from '../dtos/operator.object-type'

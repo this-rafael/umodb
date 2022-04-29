@@ -2,7 +2,6 @@ import { Query, Resolver, Mutation, Args } from '@nestjs/graphql'
 import { CreateStreamPlataformInputType } from '../dtos/create-stream-plataform.input-type'
 import { ExternalIdInputType } from '../dtos/external-id.input-type'
 import { StreamPlataformObjectType } from '../dtos/stream-plataform.object-type'
-import { UpdateStreamPlataformInputType } from '../dtos/update-stream-plataform.input-type'
 
 @Resolver()
 export class StreamPlataformResolver {

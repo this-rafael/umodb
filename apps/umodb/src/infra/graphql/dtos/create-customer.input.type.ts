@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql'
+import { Field, InputType } from '@nestjs/graphql'
 
 export type CreateCustomerInputTypeBuilder = {
   name: string
@@ -8,7 +8,7 @@ export type CreateCustomerInputTypeBuilder = {
   birthday: Date
 }
 
-@ObjectType()
+@InputType()
 export class CreateCustomerInputType {
   @Field()
   public readonly name!: string

@@ -20,7 +20,7 @@ export class UpdateMovieInputType {
   public readonly authorName?: string
 
   @Field(() => ExternalIdInputType)
-  public readonly editedBy!: { externalId: string }
+  public readonly editedBy!: ExternalIdInputType
 
   constructor(builder: UpdateMovieInputTypeBuilder) {
     Object.assign(this, builder)

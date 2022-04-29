@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type UpdateReviewInputTypeBuilder = {
   title?: string
@@ -15,11 +16,11 @@ export class UpdateReviewInputType {
   @Field()
   description?: string
 
-  @Field()
-  customer!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  customer!: ExternalIdInputType
 
-  @Field()
-  movie!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  movie!: ExternalIdInputType
 
   constructor(builder: UpdateReviewInputTypeBuilder) {
     Object.assign(this, builder)

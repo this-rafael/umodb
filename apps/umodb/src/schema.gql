@@ -16,6 +16,16 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type ActorObjectType {
+  externalId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  birthday: DateTime!
+  name: String!
+  addedBy: OperatorObjectType!
+  editedBy: OperatorObjectType!
+}
+
 type MovieObjectType {
   externalId: String!
   createdAt: DateTime!
@@ -26,9 +36,72 @@ type MovieObjectType {
   editedBy: OperatorObjectType!
 }
 
+type ReviewerObjectType {
+  externalId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+}
+
+type ActorReviewObjectType {
+  review: String!
+  reviewer: ReviewerObjectType!
+  movie: MovieObjectType!
+  actor: ActorObjectType!
+}
+
+type FullMovieReviewObjectType {
+  externalId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  reviewer: ReviewerObjectType!
+  movie: MovieObjectType!
+  title: String!
+  reviewDescription: String!
+  negativePoints: String!
+  positivePoints: String!
+}
+
+type CustomerObjectType {
+  externalId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  email: String!
+  gender: String!
+  birthday: DateTime!
+}
+
+type MovieInfoByCustumerObjectType {
+  customer: CustomerObjectType!
+  movie: MovieObjectType!
+  isLoved: Boolean!
+  score: Float!
+}
+
+type MovieScoreObjectType {
+  externalId: String!
+  score: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  customer: CustomerObjectType!
+  movie: MovieObjectType!
+}
+
+type LovedMoviesObjectType {
+  externalId: String!
+  movie: MovieObjectType!
+  lovedBy: CustomerObjectType!
+  deleted: Boolean!
+}
+
 type Query {
   getOneOperator(externalId: ExternalIdInputType!): OperatorObjectType!
   getOneMovie(addedBy: ExternalIdInputType!): MovieObjectType!
+  getActorsReview(movieId: ExternalIdInputType!): [ActorReviewObjectType!]!
+  getMovieInfoByCustomer(customerId: ExternalIdInputType!): MovieInfoByCustumerObjectType!
+  getFullMovieReview(movieId: ExternalIdInputType!): [FullMovieReviewObjectType!]!
+  getOneCustomer(customerId: ExternalIdInputType!): CustomerObjectType!
 }
 
 input ExternalIdInputType {
@@ -39,6 +112,12 @@ type Mutation {
   registerOperator(operator: CreateOperatorInputType!): OperatorObjectType!
   registerMovie(movie: CreateMovieInputType!): MovieObjectType!
   editMovie(movie: UpdateMovieInputType!): MovieObjectType!
+  addScoreMovie(score: CreateMovieScoreInputType!): MovieScoreObjectType!
+  editScoreMovie(score: UpdateMovieScoreInputType!): MovieScoreObjectType!
+  registerCustomer(customer: CreateCustomerInputType!): CustomerObjectType!
+  toggleLoveMovie(loveMovie: CreateLovedMoviesInputType!): LovedMoviesObjectType!
+  editActorReview(review: CreateActorReviewInput!): ActorReviewObjectType!
+  addActorReview(review: UpdateActorInputType!): ActorReviewObjectType!
 }
 
 input CreateOperatorInputType {
@@ -63,5 +142,43 @@ input UpdateMovieInputType {
   externalId: String!
   title: String!
   authorName: String!
+  editedBy: ExternalIdInputType!
+}
+
+input CreateMovieScoreInputType {
+  score: Float!
+  customer: ExternalIdInputType!
+  movie: ExternalIdInputType!
+}
+
+input UpdateMovieScoreInputType {
+  score: Float!
+  customer: ExternalIdInputType!
+  movie: ExternalIdInputType!
+}
+
+input CreateCustomerInputType {
+  name: String!
+  email: String!
+  password: String!
+  gender: String!
+  birthday: DateTime!
+}
+
+input CreateLovedMoviesInputType {
+  movie: ExternalIdInputType!
+  lovedBy: ExternalIdInputType!
+}
+
+input CreateActorReviewInput {
+  review: String!
+  reviewer: ExternalIdInputType!
+  movie: ExternalIdInputType!
+  actor: ExternalIdInputType!
+}
+
+input UpdateActorInputType {
+  name: String!
+  birthday: DateTime!
   editedBy: ExternalIdInputType!
 }

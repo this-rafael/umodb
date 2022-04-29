@@ -25,12 +25,12 @@ export class FullMovieReviewObjectType {
   @Field()
   public readonly updatedAt!: Date
 
-  @Field()
+  @Field(() => ReviewerObjectType)
   public readonly reviewer!: Partial<ReviewerObjectType> & {
     externalId: string
   }
 
-  @Field()
+  @Field(() => MovieObjectType)
   public readonly movie!: Partial<MovieObjectType> & { externalId: string }
 
   @Field()

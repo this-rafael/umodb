@@ -17,7 +17,7 @@ export class CreateActorInputType {
   public readonly birthday!: Date
 
   @Field(() => ExternalIdInputType)
-  public readonly addedBy!: { externalId: string }
+  public readonly addedBy!: ExternalIdInputType
 
   constructor(builder: CreateActorInputTypeBuilder) {
     Object.assign(this, builder)

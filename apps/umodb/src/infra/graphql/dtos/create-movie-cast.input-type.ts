@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type CreateMovieCastInputTypeBuilder = {
   movieId: { externalId: string }
@@ -8,14 +9,14 @@ export type CreateMovieCastInputTypeBuilder = {
 
 @InputType()
 export class CreateMovieCastInputType {
-  @Field()
-  public readonly movieId!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly movieId!: ExternalIdInputType
 
-  @Field()
-  public readonly actorId!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly actorId!: ExternalIdInputType
 
-  @Field()
-  public readonly addedBy!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly addedBy!: ExternalIdInputType
 
   constructor(builder: CreateMovieCastInputTypeBuilder) {
     Object.assign(this, builder)

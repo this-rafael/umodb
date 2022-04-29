@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { CatalogObjectType } from './catalog-object-type'
 import { MovieObjectType } from './movie.object-type'
 import { OperatorObjectType } from './operator.object-type'
 

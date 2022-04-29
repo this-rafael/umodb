@@ -16,7 +16,7 @@ export class UpdateActorInputType {
   public readonly birthday?: Date
 
   @Field(() => ExternalIdInputType)
-  public readonly editedBy!: { externalId: string }
+  public readonly editedBy!: ExternalIdInputType
 
   constructor(builder: UpdateActorInputTypeBuilder) {
     Object.assign(this, builder)

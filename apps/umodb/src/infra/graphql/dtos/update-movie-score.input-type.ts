@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type UpdateMovieScoreInputTypeBuilder = {
   score?: number
@@ -11,11 +12,11 @@ export class UpdateMovieScoreInputType {
   @Field()
   score?: number
 
-  @Field()
-  customer!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  customer!: ExternalIdInputType
 
-  @Field()
-  movie!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  movie!: ExternalIdInputType
 
   constructor(builder: UpdateMovieScoreInputTypeBuilder) {
     Object.assign(this, builder)

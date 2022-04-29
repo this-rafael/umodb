@@ -1,4 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type UpdateFullMovieReviewInputTypeBuilder = {
   externalId: string
@@ -15,8 +16,8 @@ export class UpdateFullMovieReviewInputType {
   @Field()
   public readonly externalId!: string
 
-  @Field()
-  public readonly reviewer!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly reviewer!: ExternalIdInputType
 
   @Field({ nullable: true })
   public readonly movie?: { externalId: string }

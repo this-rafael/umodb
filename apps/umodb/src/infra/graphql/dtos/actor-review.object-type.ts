@@ -15,15 +15,15 @@ export class ActorReviewObjectType {
   @Field()
   public readonly review!: string
 
-  @Field()
+  @Field(() => ReviewerObjectType)
   public readonly reviewer!: Partial<ReviewerObjectType> & {
     externalId: string
   }
 
-  @Field()
+  @Field(() => MovieObjectType)
   public readonly movie!: Partial<MovieObjectType> & { externalId: string }
 
-  @Field()
+  @Field(() => ActorObjectType)
   public readonly actor!: Partial<ActorObjectType> & { externalId: string }
 
   constructor(builder: ActorReviewObjectTypeBuilder) {

@@ -1,4 +1,6 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { ActorReviewObjectType } from '../dtos/actor-review.object-type'
+import { CreateActorReviewInput } from '../dtos/create-actor-review.input-type'
 import { CreateCustomerInputType } from '../dtos/create-customer.input.type'
 import { CreateLovedMoviesInputType } from '../dtos/create-loved-movies.input-type'
 
@@ -6,10 +8,11 @@ import { CustomerObjectType } from '../dtos/customer.object-type'
 import { ExternalIdInputType } from '../dtos/external-id.input-type'
 import { LovedMoviesObjectType } from '../dtos/loved-movies.object-type'
 import { MovieInfoByCustumerObjectType } from '../dtos/movie-info-by-customer.object-type'
+import { UpdateActorInputType } from '../dtos/update-actor.input-type'
 
 @Resolver()
 export class CustomerResolver {
-  @Mutation()
+  @Mutation(() => CustomerObjectType)
   async registerCustomer(
     @Args('customer') customer: CreateCustomerInputType,
   ): Promise<CustomerObjectType> {
@@ -25,7 +28,7 @@ export class CustomerResolver {
     })
   }
 
-  @Query()
+  @Query(() => CustomerObjectType)
   async getOneCustomer(
     @Args('customerId') customerId: ExternalIdInputType,
   ): Promise<CustomerObjectType> {
@@ -42,7 +45,7 @@ export class CustomerResolver {
     })
   }
 
-  @Mutation()
+  @Mutation(() => LovedMoviesObjectType)
   async toggleLoveMovie(
     @Args('loveMovie') loveMovie: CreateLovedMoviesInputType,
   ): Promise<LovedMoviesObjectType> {
@@ -60,17 +63,39 @@ export class CustomerResolver {
     })
   }
 
-  @Query()
-  async getMovieInfoByCustomer(
-    @Args('customerId') customerId: ExternalIdInputType,
-  ): Promise<MovieInfoByCustumerObjectType> {
-    console.log(customerId)
+  @Mutation(() => ActorReviewObjectType)
+  async editActorReview(
+    @Args('review') review: CreateActorReviewInput,
+  ): Promise<ActorReviewObjectType> {
+    return new ActorReviewObjectType({
+      actor: {
+        externalId: '123',
+      },
+      movie: {
+        externalId: '123',
+      },
+      review: 'adsadasda',
+      reviewer: {
+        externalId: '1',
+      },
+    })
+  }
 
-    return new MovieInfoByCustumerObjectType({
-      customer: { externalId: '123' },
-      movie: { externalId: '123' },
-      isLoved: true,
-      score: 1,
+  @Mutation(() => ActorReviewObjectType)
+  async addActorReview(
+    @Args('review') review: UpdateActorInputType,
+  ): Promise<ActorReviewObjectType> {
+    return new ActorReviewObjectType({
+      actor: {
+        externalId: '123',
+      },
+      movie: {
+        externalId: '123',
+      },
+      review: 'adsadasda',
+      reviewer: {
+        externalId: '1',
+      },
     })
   }
 }
