@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
+import { CustomerTopicReviewObjectType } from './customer-topic-review.object-type'
 import { MovieObjectType } from './movie.object-type'
 import { ReviewerObjectType } from './reviewer.object-type'
 
@@ -10,8 +11,9 @@ export type FullMovieReviewObjectTypeBuilder = {
   movie: Partial<MovieObjectType> & { externalId: string }
   title: string
   reviewDescription: string
-  negativePoints: string
-  positivePoints: string
+  negativePoints?: string
+  positivePoints?: string
+  individualReviews: Partial<CustomerTopicReviewObjectType>[]
 }
 
 @ObjectType()
@@ -25,12 +27,17 @@ export class FullMovieReviewObjectType {
   @Field()
   public readonly updatedAt!: Date
 
-  @Field()
+  @Field(() => ReviewerObjectType)
   public readonly reviewer!: Partial<ReviewerObjectType> & {
     externalId: string
   }
 
-  @Field()
+  @Field(() => [CustomerTopicReviewObjectType])
+  public readonly individualReviews!: Partial<
+    CustomerTopicReviewObjectType & { externalId: string }
+  >[]
+
+  @Field(() => MovieObjectType)
   public readonly movie!: Partial<MovieObjectType> & { externalId: string }
 
   @Field()
@@ -40,10 +47,10 @@ export class FullMovieReviewObjectType {
   public readonly reviewDescription!: string
 
   @Field()
-  public readonly negativePoints!: string
+  public readonly negativePoints?: string
 
   @Field()
-  public readonly positivePoints!: string
+  public readonly positivePoints?: string
 
   constructor(builder: FullMovieReviewObjectTypeBuilder) {
     Object.assign(this, builder)
@@ -61,6 +68,7 @@ export class FullMovieReviewObjectType {
     other: Partial<FullMovieReviewObjectTypeBuilder>,
   ): FullMovieReviewObjectType {
     return new FullMovieReviewObjectType({
+      individualReviews: other.individualReviews ?? this.individualReviews,
       externalId: other.externalId ?? this.externalId,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,

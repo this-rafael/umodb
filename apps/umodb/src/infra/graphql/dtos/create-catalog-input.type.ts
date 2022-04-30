@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type CreateCatalogObjectTypeBuilder = {
   fkStreamPlataform: { externalId: string }
@@ -8,14 +9,14 @@ export type CreateCatalogObjectTypeBuilder = {
 
 @InputType()
 export class CreateCatalogObjectType {
-  @Field()
-  public readonly fkStreamPlataform!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly streamPlataformId!: ExternalIdInputType
 
-  @Field()
-  public readonly fkMovie!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly movieId!: ExternalIdInputType
 
-  @Field()
-  public readonly addedBy!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly addedBy!: ExternalIdInputType
 
   constructor(builder: CreateCatalogObjectTypeBuilder) {
     Object.assign(this, builder)
@@ -33,8 +34,8 @@ export class CreateCatalogObjectType {
     other: Partial<CreateCatalogObjectTypeBuilder>,
   ): CreateCatalogObjectType {
     return new CreateCatalogObjectType({
-      fkStreamPlataform: other.fkStreamPlataform ?? this.fkStreamPlataform,
-      fkMovie: other.fkMovie ?? this.fkMovie,
+      fkStreamPlataform: other.fkStreamPlataform ?? this.streamPlataformId,
+      fkMovie: other.fkMovie ?? this.movieId,
       addedBy: other.addedBy ?? this.addedBy,
     })
   }

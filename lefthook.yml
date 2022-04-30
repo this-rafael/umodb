@@ -42,7 +42,7 @@ pre-push:
 post-merge:
   parallel: false
   commands:
-    install-dependencies:
-      run: pnpm i
-    tsdoc:
-      run: pnpm typedoc --entryPointStrategy expand ./src --darkHighlightTheme dark-plus
+    # install-dependencies:
+    #   run: pnpm i
+    # tsdoc:
+    #   run: pnpm typedoc --entryPointStrategy expand ./src --darkHighlightTheme dark-plus

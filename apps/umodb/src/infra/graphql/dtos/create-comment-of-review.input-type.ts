@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type CreateCommentOfReviewInputTypeBuilder = {
   content: string
@@ -12,14 +13,14 @@ export class CreateCommentOfReviewInputType {
   @Field()
   content!: string
 
-  @Field()
-  review!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  review!: ExternalIdInputType
 
-  @Field()
-  commentedBy!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  commentedBy!: ExternalIdInputType
 
-  @Field()
-  commentOn!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  commentOn!: ExternalIdInputType
 
   constructor(builder: CreateCommentOfReviewInputTypeBuilder) {
     Object.assign(this, builder)

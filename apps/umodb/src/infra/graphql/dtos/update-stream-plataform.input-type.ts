@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type UpdateStreamPlataformInputTypeBuilder = {
   name: string
@@ -10,8 +11,8 @@ export class UpdateStreamPlataformInputType {
   @Field()
   public readonly name!: string
 
-  @Field()
-  public readonly editedBy!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly editedBy!: ExternalIdInputType
 
   constructor(builder: UpdateStreamPlataformInputTypeBuilder) {
     Object.assign(this, builder)

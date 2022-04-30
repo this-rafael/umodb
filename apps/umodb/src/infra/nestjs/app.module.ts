@@ -3,6 +3,9 @@ import { GraphQLModule } from '@nestjs/graphql'
 import * as path from 'path'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { OperatorResolver } from '../graphql/resolvers/operator.resolver'
+import { MovieResolver } from '../graphql/resolvers/movie.resolver'
+import { StreamPlataformResolver } from '../graphql/resolvers/stream-plataform.resolver'
+import { CustomerResolver } from '../graphql/resolvers/customer.resolver'
 
 @Module({
   imports: [
@@ -27,6 +30,6 @@ import { OperatorResolver } from '../graphql/resolvers/operator.resolver'
       },
     }),
   ],
-  providers: [OperatorResolver],
+  providers: [OperatorResolver, MovieResolver, CustomerResolver],
 })
 export class AppModule {}

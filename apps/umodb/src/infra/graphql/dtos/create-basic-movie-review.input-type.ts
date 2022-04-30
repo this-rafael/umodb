@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { ExternalIdInputType } from './external-id.input-type'
 
-export type CreateReviewInputTypeBuilder = {
+export type CreateBasicMovieReviewInputTypeBuilder = {
   title: string
   description: string
   customer: { externalId: string }
@@ -9,7 +9,7 @@ export type CreateReviewInputTypeBuilder = {
 }
 
 @InputType()
-export class CreateReviewInputType {
+export class CreateBasicMovieReviewInputType {
   @Field()
   title!: string
 
@@ -22,7 +22,7 @@ export class CreateReviewInputType {
   @Field(() => ExternalIdInputType)
   movie!: ExternalIdInputType
 
-  constructor(builder: CreateReviewInputTypeBuilder) {
+  constructor(builder: CreateBasicMovieReviewInputTypeBuilder) {
     Object.assign(this, builder)
   }
 
@@ -35,9 +35,9 @@ export class CreateReviewInputType {
   }
 
   copyWith(
-    other: Partial<CreateReviewInputTypeBuilder>,
-  ): CreateReviewInputType {
-    return new CreateReviewInputType({
+    other: Partial<CreateBasicMovieReviewInputTypeBuilder>,
+  ): CreateBasicMovieReviewInputType {
+    return new CreateBasicMovieReviewInputType({
       title: other.title ?? this.title,
       description: other.description ?? this.description,
       customer: other.customer ?? this.customer,

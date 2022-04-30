@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
+import { MovieObjectType } from './movie.object-type'
 import { OperatorObjectType } from './operator.object-type'
 
 export type StreamPlataformObjectTypeBuilder = {
@@ -8,6 +9,7 @@ export type StreamPlataformObjectTypeBuilder = {
   name: string
   addedBy: Partial<OperatorObjectType> & { externalId: string }
   editedBy: Partial<OperatorObjectType> & { externalId: string }
+  catalog?: Partial<MovieObjectType>[]
 }
 
 @ObjectType()
@@ -17,6 +19,9 @@ export class StreamPlataformObjectType {
 
   @Field()
   public readonly createdAt!: Date
+
+  @Field(() => [MovieObjectType], { nullable: true })
+  public readonly catalog?: Partial<MovieObjectType>[]
 
   @Field()
   public readonly updatedAt!: Date
@@ -48,6 +53,7 @@ export class StreamPlataformObjectType {
     other: Partial<StreamPlataformObjectTypeBuilder>,
   ): StreamPlataformObjectType {
     return new StreamPlataformObjectType({
+      catalog: other.catalog ?? this.catalog,
       externalId: other.externalId ?? this.externalId,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,

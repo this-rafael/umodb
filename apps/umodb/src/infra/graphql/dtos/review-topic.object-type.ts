@@ -1,11 +1,15 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 
 export type ReviewTopicInputTypeBuilder = {
+  externalId: string
   title: string
 }
 
 @ObjectType()
-export class ReviewTopicInputType {
+export class ReviewTopicObjectType {
+  @Field()
+  public readonly externalId!: string
+
   @Field()
   public readonly title!: string
 
@@ -21,8 +25,9 @@ export class ReviewTopicInputType {
     return `${this.toMap}`
   }
 
-  copyWith(other: Partial<ReviewTopicInputTypeBuilder>): ReviewTopicInputType {
-    return new ReviewTopicInputType({
+  copyWith(other: Partial<ReviewTopicInputTypeBuilder>): ReviewTopicObjectType {
+    return new ReviewTopicObjectType({
+      externalId: other.externalId ?? this.externalId,
       title: other.title ?? this.title,
     })
   }

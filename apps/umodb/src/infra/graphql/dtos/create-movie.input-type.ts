@@ -18,13 +18,13 @@ export class CreateMovieInputType {
   public readonly authorName!: string
 
   @Field(() => ExternalIdInputType)
-  public readonly addedBy!: { externalId: string }
+  public readonly addedBy!: ExternalIdInputType
 
   @Field(() => ExternalIdInputType)
-  public readonly addToPlataform!: { externalId: string }
+  public readonly addToPlataform!: ExternalIdInputType
 
   @Field(() => [ExternalIdInputType])
-  public readonly movieCast!: { externalId: string }[]
+  public readonly movieCast!: ExternalIdInputType[]
 
   constructor(builder: CreateMovieInputTypeBuilder) {
     Object.assign(this, builder)

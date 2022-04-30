@@ -1,20 +1,19 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 import { CustomerObjectType } from './customer.object-type'
 import { MovieObjectType } from './movie.object-type'
-import { ReviewObjectType } from './review.object-type'
+import { BasicReviewObjectType } from './review.object-type'
 
 export type CommentOnReviewInputTypeBuilder = {
   externalId: string
   createdAt: Date
   updatedAt: Date
-  title: string
-  description: string
+  content: string
   commentedBy: Partial<CustomerObjectType> & { externalId: string }
-  commentOn: Partial<ReviewObjectType> & { externalId: string }
+  commentOn: Partial<BasicReviewObjectType> & { externalId: string }
 }
 
 @ObjectType()
-export class CommentOnReviewInputType {
+export class CommentOnReviewObjectType {
   @Field()
   externalId!: string
 
@@ -25,16 +24,13 @@ export class CommentOnReviewInputType {
   updatedAt!: Date
 
   @Field()
-  title!: string
-
-  @Field()
-  description!: string
+  content!: string
 
   @Field(() => CustomerObjectType)
-  commentedBy!: CustomerObjectType
+  commentedBy!: Partial<CustomerObjectType> & { externalId: string }
 
-  @Field(() => ReviewObjectType)
-  commentOn!: Partial<ReviewObjectType> & { externalId: string }
+  @Field(() => BasicReviewObjectType)
+  commentOn!: Partial<BasicReviewObjectType> & { externalId: string }
 
   constructor(builder: CommentOnReviewInputTypeBuilder) {
     Object.assign(this, builder)
@@ -50,13 +46,12 @@ export class CommentOnReviewInputType {
 
   copyWith(
     other: Partial<CommentOnReviewInputTypeBuilder>,
-  ): CommentOnReviewInputType {
-    return new CommentOnReviewInputType({
+  ): CommentOnReviewObjectType {
+    return new CommentOnReviewObjectType({
       externalId: other.externalId ?? this.externalId,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,
-      title: other.title ?? this.title,
-      description: other.description ?? this.description,
+      content: other.content ?? this.content,
       commentedBy: other.commentedBy ?? this.commentedBy,
       commentOn: other.commentOn ?? this.commentOn,
     })

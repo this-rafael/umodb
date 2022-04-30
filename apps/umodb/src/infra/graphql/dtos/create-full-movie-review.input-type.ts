@@ -1,4 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql'
+import { ExternalIdInputType } from './external-id.input-type'
 
 export type CreateFullMovieReviewInputTypeBuilder = {
   externalId: string
@@ -7,8 +8,8 @@ export type CreateFullMovieReviewInputTypeBuilder = {
   movie: { externalId: string }
   title: string
   reviewDescription: string
-  negativePoints: string
-  positivePoints: string
+  negativePoints?: string
+  positivePoints?: string
 }
 
 @InputType()
@@ -19,11 +20,11 @@ export class CreateFullMovieReviewInputType {
   @Field()
   public readonly createdAt!: Date
 
-  @Field()
-  public readonly reviewer!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly reviewer!: ExternalIdInputType
 
-  @Field()
-  public readonly movie!: { externalId: string }
+  @Field(() => ExternalIdInputType)
+  public readonly movie!: ExternalIdInputType
 
   @Field()
   public readonly title!: string
@@ -32,10 +33,10 @@ export class CreateFullMovieReviewInputType {
   public readonly reviewDescription!: string
 
   @Field()
-  public readonly negativePoints!: string
+  public readonly negativePoints?: string
 
   @Field()
-  public readonly positivePoints!: string
+  public readonly positivePoints?: string
 
   constructor(builder: CreateFullMovieReviewInputTypeBuilder) {
     Object.assign(this, builder)

@@ -34,33 +34,29 @@ Cada cliente tem nome, email, senha, genero e data de nascimento
 
 ### Como cliente eu posso classificar o filme de 1 a 5 estrelas
 
-
-
 ### Como o cliente eu posso editar minha classificação ou apaga-la
 
-
 ### Como cliente eu posso ver as reviews feitas a um ator dentro de um filme
-Cada review tem o nome do ator, o nome do filme, uma descrição de texto e o autor daquela postagem
-### Como cliente eu posso criar e editar uma review sobre um ator:
 
+Cada review tem o nome do ator, o nome do filme, uma descrição de texto e o autor daquela postagem
+
+### Como cliente eu posso criar e editar uma review sobre um ator:
 
 ### Como cliente eu posso listar resenhas já feitas em um determinado filme
 
-Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha 
+Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha
 
 ### Como cliente eu posso escrever uma resenha de um filme ou edita-la.
 
 Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha
+
+### Como cliente eu posso ver todos os comentarios feitos a uma revisão basica
 
 ### Como cliente eu posso responder (escrever o comentario) sobre resenhas já feitas em um filme
 
 Cada comentario tem uma descrição, e o nome do criador
 
 ### Como cliente eu posso editar um comentario feito feito sobre uma resenha
-  
-### Como cliente eu posso avaliar (e editar a avaliação feita a) uma resenha
-
-A avaliação é um numero de 1 a 5, deve referenciar o criador da avaliação
 
 ### Como cliente eu posso ler avaliações completas sobre um filme
 
@@ -71,9 +67,10 @@ A avaliação completa tem:
 - Uma descrição sobre os pontos positivos (opcional)
 - Uma descrição sobre os pontos negativos (opcional)
 - Uma seção de topicos de avalição sobre o filme, onde cada topico será representado por:
+
   - Titulo do topico, Exemplo: direção
   - Uma avalição de 1 a 5 sobre o topico
- 
+
 - Uma avaliação geral, calculada automaticamente pela formula: SOMATORIO_DAS_AVALIACOES_NOS_TOPICOS / QUANTIDADE_DE_TOPICOS
 
 ### Como cliente eu posso escrever avaliações completas sobre um filme

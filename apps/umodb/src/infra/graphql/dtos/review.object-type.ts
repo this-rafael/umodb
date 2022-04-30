@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql'
 import { CustomerObjectType } from './customer.object-type'
 import { MovieObjectType } from './movie.object-type'
 
-export type ReviewObjectTypeBuilder = {
+export type BaseReviewObjectTypeBuilder = {
   externalId: string
   createdAt: Date
   updatedAt: Date
@@ -13,7 +13,7 @@ export type ReviewObjectTypeBuilder = {
 }
 
 @ObjectType()
-export class ReviewObjectType {
+export class BasicReviewObjectType {
   @Field()
   externalId!: string
 
@@ -35,7 +35,7 @@ export class ReviewObjectType {
   @Field(() => MovieObjectType)
   movie!: MovieObjectType
 
-  constructor(builder: ReviewObjectTypeBuilder) {
+  constructor(builder: BaseReviewObjectTypeBuilder) {
     Object.assign(this, builder)
   }
 
@@ -47,8 +47,8 @@ export class ReviewObjectType {
     return `${this.toMap}`
   }
 
-  copyWith(other: Partial<ReviewObjectTypeBuilder>): ReviewObjectType {
-    return new ReviewObjectType({
+  copyWith(other: Partial<BaseReviewObjectTypeBuilder>): BasicReviewObjectType {
+    return new BasicReviewObjectType({
       externalId: other.externalId ?? this.externalId,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,
