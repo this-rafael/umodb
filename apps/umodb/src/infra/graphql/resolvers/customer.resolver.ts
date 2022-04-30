@@ -1,14 +1,8 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ActorReviewObjectType } from '../dtos/actor-review.object-type'
-import {
-  CommentOnReviewObjectType,
-  CommentOnReviewInputTypeBuilder,
-} from '../dtos/comment-of-review.object-type'
+import { CommentOnReviewObjectType } from '../dtos/comment-of-review.object-type'
 import { CreateActorReviewInput } from '../dtos/create-actor-review.input-type'
-import {
-  CreateBasicMovieReviewInputType,
-  CreateBasicMovieReviewInputTypeBuilder,
-} from '../dtos/create-basic-movie-review.input-type'
+import { CreateBasicMovieReviewInputType } from '../dtos/create-basic-movie-review.input-type'
 import { CreateCommentOfReviewInputType } from '../dtos/create-comment-of-review.input-type'
 import { CreateCustomerInputType } from '../dtos/create-customer.input.type'
 import { CreateLovedMoviesInputType } from '../dtos/create-loved-movies.input-type'
@@ -76,6 +70,8 @@ export class CustomerResolver {
   async editActorReview(
     @Args('review') review: CreateActorReviewInput,
   ): Promise<ActorReviewObjectType> {
+    console.log(review)
+
     return new ActorReviewObjectType({
       actor: {
         externalId: '123',
@@ -94,6 +90,8 @@ export class CustomerResolver {
   async addActorReview(
     @Args('review') review: UpdateActorInputType,
   ): Promise<ActorReviewObjectType> {
+    console.log(review)
+
     return new ActorReviewObjectType({
       actor: {
         externalId: '123',
