@@ -6,7 +6,37 @@
 
 Promover uma aplicação para classificação de filmes.
 
-## Funcionalidades
+## Task Progress
+
+|              task               | read | in progress | in documentation | in test | done |
+| :-----------------------------: | ---- | ----------- | ---------------- | ------- | ---- |
+|    create gateway resolvers     | x    |             |                  |         |      |
+|        register operator        | x    |             |                  |         |      |
+|         register movies         | x    |             |                  |         |      |
+|          update movies          | x    |             |                  |         |      |
+|         register actors         | x    |             |                  |         |      |
+|    register stream plataform    | x    |             |                  |         |      |
+| update stream plataform catalog | x    |             |                  |         |      |
+|        register customer        | x    |             |                  |         |      |
+|         update customer         | x    |             |                  |         |      |
+|           like movie            | x    |             |                  |         |      |
+|          unlike movie           | x    |             |                  |         |      |
+|       create score movie        | x    |             |                  |         |      |
+|        edit movie score         | x    |             |                  |         |      |
+|       list actor reviews        | x    |             |                  |         |      |
+|       create actor review       | x    |             |                  |         |      |
+|        edit actor review        | x    |             |                  |         |      |
+|   list basic review on movie    | x    |             |                  |         |      |
+|  create basic review on movie   | x    |             |                  |         |      |
+|  update basic review on movie   | x    |             |                  |         |      |
+|  list comments on basic review  | x    |             |                  |         |      |
+|     comment on basic review     | x    |             |                  |         |      |
+|  edit commend on basic review   | x    |             |                  |         |      |
+|     list full movie review      | x    |             |                  |         |      |
+|    create full movie review     | x    |             |                  |         |      |
+|    update full moview review    | x    |             |                  |         |      |
+
+## Casos de uso
 
 ### Como operador do sistema eu posso me cadastrar no sistema e gerenciar meus dados.
 
@@ -73,4 +103,4 @@ A avaliação completa tem:
 
 - Uma avaliação geral, calculada automaticamente pela formula: SOMATORIO_DAS_AVALIACOES_NOS_TOPICOS / QUANTIDADE_DE_TOPICOS
 
-### Como cliente eu posso escrever avaliações completas sobre um filme
+### Como cliente eu posso escrever e editar avaliações completas sobre um filme
