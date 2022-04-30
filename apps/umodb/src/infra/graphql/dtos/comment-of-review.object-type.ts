@@ -7,8 +7,7 @@ export type CommentOnReviewInputTypeBuilder = {
   externalId: string
   createdAt: Date
   updatedAt: Date
-  title: string
-  description: string
+  content: string
   commentedBy: Partial<CustomerObjectType> & { externalId: string }
   commentOn: Partial<BasicReviewObjectType> & { externalId: string }
 }
@@ -25,10 +24,7 @@ export class CommentOnReviewObjectType {
   updatedAt!: Date
 
   @Field()
-  title!: string
-
-  @Field()
-  description!: string
+  content!: string
 
   @Field(() => CustomerObjectType)
   commentedBy!: Partial<CustomerObjectType> & { externalId: string }
@@ -55,8 +51,7 @@ export class CommentOnReviewObjectType {
       externalId: other.externalId ?? this.externalId,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,
-      title: other.title ?? this.title,
-      description: other.description ?? this.description,
+      content: other.content ?? this.content,
       commentedBy: other.commentedBy ?? this.commentedBy,
       commentOn: other.commentOn ?? this.commentOn,
     })

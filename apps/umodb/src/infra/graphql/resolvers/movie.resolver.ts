@@ -1,5 +1,6 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ActorReviewObjectType } from '../dtos/actor-review.object-type'
+import { CommentOnReviewObjectType } from '../dtos/comment-of-review.object-type'
 import { CreateMovieScoreInputType } from '../dtos/create-movie-score.input-type'
 import { CreateMovieInputType } from '../dtos/create-movie.input-type'
 import { ExternalIdInputType } from '../dtos/external-id.input-type'
@@ -156,7 +157,7 @@ export class MovieResolver {
   }
 
   @Query(() => [FullMovieReviewObjectType])
-  async getFullMovieReview(
+  async getAllBasicMovieReview(
     @Args('movieId') movieId: ExternalIdInputType,
   ): Promise<BasicReviewObjectType[]> {
     console.log(movieId)
@@ -172,6 +173,57 @@ export class MovieResolver {
         customer: { externalId: '1231' },
         description: 'OLOLOLO',
         updatedAt: new Date(),
+      }),
+    ]
+  }
+
+  @Query(() => [FullMovieReviewObjectType])
+  async getAllFullMovieReview(
+    @Args('movieId') movieId: ExternalIdInputType,
+  ): Promise<FullMovieReviewObjectType[]> {
+    console.log(movieId)
+    return [
+      new FullMovieReviewObjectType({
+        movie: {
+          externalId: '123',
+        },
+        individualReviews: [
+          {
+            externalId: '123',
+          },
+        ],
+        createdAt: new Date(),
+        externalId: '123',
+        negativePoints: 'adsadasdsa',
+        positivePoints: 'adsadasdsa',
+        reviewDescription: 'AODAPSD',
+        title: 'dasdsazxm',
+        reviewer: {
+          externalId: '123',
+        },
+        updatedAt: new Date(),
+      }),
+    ]
+  }
+
+  @Query(() => [CommentOnReviewObjectType])
+  async getAllCommendOnBasicReview(
+    @Args('review') reviewId: ExternalIdInputType,
+  ): Promise<CommentOnReviewObjectType[]> {
+    console.log(reviewId)
+
+    return [
+      new CommentOnReviewObjectType({
+        createdAt: new Date(),
+        externalId: '123',
+        content: 'OLOLOLO',
+        commentOn: {
+          externalId: '123',
+        },
+        updatedAt: new Date(),
+        commentedBy: {
+          externalId: '123',
+        },
       }),
     ]
   }

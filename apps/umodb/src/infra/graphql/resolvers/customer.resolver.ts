@@ -5,13 +5,17 @@ import { CreateActorReviewInput } from '../dtos/create-actor-review.input-type'
 import { CreateBasicMovieReviewInputType } from '../dtos/create-basic-movie-review.input-type'
 import { CreateCommentOfReviewInputType } from '../dtos/create-comment-of-review.input-type'
 import { CreateCustomerInputType } from '../dtos/create-customer.input.type'
+import { CreateFullMovieReviewInputType } from '../dtos/create-full-movie-review.input-type'
 import { CreateLovedMoviesInputType } from '../dtos/create-loved-movies.input-type'
 import { CustomerObjectType } from '../dtos/customer.object-type'
 import { ExternalIdInputType } from '../dtos/external-id.input-type'
+import { FullMovieReviewObjectType } from '../dtos/full-movie-review.object-type'
 import { LovedMoviesObjectType } from '../dtos/loved-movies.object-type'
 import { BasicReviewObjectType } from '../dtos/review.object-type'
 import { UpdateActorInputType } from '../dtos/update-actor.input-type'
 import { UpdateBasicMovieReviewInputType } from '../dtos/update-basic-movie-review.input-type'
+import { UpdateCommentOfReviewInputType } from '../dtos/update-comment-of-review.input-type'
+import { UpdateFullMovieReviewInputType } from '../dtos/update-full-moview-review.input-type'
 
 @Resolver()
 export class CustomerResolver {
@@ -148,9 +152,9 @@ export class CustomerResolver {
     })
   }
 
-  @Mutation(() => BasicReviewObjectType)
+  @Mutation(() => CommentOnReviewObjectType)
   async commentMovieReview(
-    @Args('commend') review: CreateCommentOfReviewInputType,
+    @Args('comment') review: CreateCommentOfReviewInputType,
   ): Promise<CommentOnReviewObjectType> {
     console.log(review)
 
@@ -158,14 +162,77 @@ export class CustomerResolver {
       externalId: '123',
       createdAt: new Date(),
       updatedAt: new Date(),
-      title: 'Rafael',
       commentOn: {
         externalId: '123',
       },
       commentedBy: {
         externalId: '123',
       },
-      description: 'Rafael',
+      content: 'Rafael',
+    })
+  }
+
+  @Mutation(() => CommentOnReviewObjectType)
+  async updateCommentMovieReview(
+    @Args('comment') review: UpdateCommentOfReviewInputType,
+  ): Promise<CommentOnReviewObjectType> {
+    console.log(review)
+
+    return new CommentOnReviewObjectType({
+      externalId: '123',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      commentOn: {
+        externalId: '123',
+      },
+      commentedBy: {
+        externalId: '123',
+      },
+      content: 'Rafael',
+    })
+  }
+
+  @Mutation(() => FullMovieReviewObjectType)
+  async createFullMovieReview(
+    @Args('review') review: CreateFullMovieReviewInputType,
+  ): Promise<FullMovieReviewObjectType> {
+    return new FullMovieReviewObjectType({
+      externalId: '123',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      movie: {
+        externalId: '123',
+      },
+      negativePoints: '',
+      positivePoints: '',
+      reviewDescription: '',
+      reviewer: {
+        externalId: '123',
+      },
+      title: '',
+      individualReviews: [],
+    })
+  }
+
+  @Mutation(() => FullMovieReviewObjectType)
+  async updateFullMovieReview(
+    @Args('review') review: UpdateFullMovieReviewInputType,
+  ): Promise<FullMovieReviewObjectType> {
+    return new FullMovieReviewObjectType({
+      externalId: '123',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      movie: {
+        externalId: '123',
+      },
+      negativePoints: '',
+      positivePoints: '',
+      reviewDescription: '',
+      reviewer: {
+        externalId: '123',
+      },
+      title: '',
+      individualReviews: [],
     })
   }
 }

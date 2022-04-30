@@ -19,7 +19,7 @@ export class UpdateFullMovieReviewInputType {
   @Field(() => ExternalIdInputType)
   public readonly reviewer!: ExternalIdInputType
 
-  @Field({ nullable: true })
+  @Field(() => ExternalIdInputType, { nullable: true })
   public readonly movie?: { externalId: string }
 
   @Field({ nullable: true })

@@ -8,8 +8,8 @@ export type CreateFullMovieReviewInputTypeBuilder = {
   movie: { externalId: string }
   title: string
   reviewDescription: string
-  negativePoints: string
-  positivePoints: string
+  negativePoints?: string
+  positivePoints?: string
 }
 
 @InputType()
@@ -33,10 +33,10 @@ export class CreateFullMovieReviewInputType {
   public readonly reviewDescription!: string
 
   @Field()
-  public readonly negativePoints!: string
+  public readonly negativePoints?: string
 
   @Field()
-  public readonly positivePoints!: string
+  public readonly positivePoints?: string
 
   constructor(builder: CreateFullMovieReviewInputTypeBuilder) {
     Object.assign(this, builder)

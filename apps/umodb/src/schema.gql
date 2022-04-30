@@ -50,18 +50,6 @@ type ActorReviewObjectType {
   actor: ActorObjectType!
 }
 
-type FullMovieReviewObjectType {
-  externalId: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  reviewer: ReviewerObjectType!
-  movie: MovieObjectType!
-  title: String!
-  reviewDescription: String!
-  negativePoints: String!
-  positivePoints: String!
-}
-
 type CustomerObjectType {
   externalId: String!
   createdAt: DateTime!
@@ -70,6 +58,49 @@ type CustomerObjectType {
   email: String!
   gender: String!
   birthday: DateTime!
+}
+
+type BasicReviewObjectType {
+  externalId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String!
+  customer: CustomerObjectType!
+  movie: MovieObjectType!
+}
+
+type CommentOnReviewObjectType {
+  externalId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  commentedBy: CustomerObjectType!
+  commentOn: BasicReviewObjectType!
+}
+
+type ReviewTopicObjectType {
+  externalId: String!
+  title: String!
+}
+
+type CustomerTopicReviewObjectType {
+  externalId: String!
+  topic: ReviewTopicObjectType!
+  score: Float!
+}
+
+type FullMovieReviewObjectType {
+  externalId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  reviewer: ReviewerObjectType!
+  individualReviews: [CustomerTopicReviewObjectType!]!
+  movie: MovieObjectType!
+  title: String!
+  reviewDescription: String!
+  negativePoints: String!
+  positivePoints: String!
 }
 
 type MovieInfoByCustumerObjectType {
@@ -88,16 +119,6 @@ type MovieScoreObjectType {
   movie: MovieObjectType!
 }
 
-type BasicReviewObjectType {
-  externalId: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  title: String!
-  description: String!
-  customer: CustomerObjectType!
-  movie: MovieObjectType!
-}
-
 type LovedMoviesObjectType {
   externalId: String!
   movie: MovieObjectType!
@@ -110,7 +131,9 @@ type Query {
   getOneMovie(addedBy: ExternalIdInputType!): MovieObjectType!
   getActorsReview(movieId: ExternalIdInputType!): [ActorReviewObjectType!]!
   getMovieInfoByCustomer(customerId: ExternalIdInputType!): MovieInfoByCustumerObjectType!
-  getFullMovieReview(movieId: ExternalIdInputType!): [FullMovieReviewObjectType!]!
+  getAllBasicMovieReview(movieId: ExternalIdInputType!): [FullMovieReviewObjectType!]!
+  getAllFullMovieReview(movieId: ExternalIdInputType!): [FullMovieReviewObjectType!]!
+  getAllCommendOnBasicReview(review: ExternalIdInputType!): [CommentOnReviewObjectType!]!
   getOneCustomer(customerId: ExternalIdInputType!): CustomerObjectType!
 }
 
@@ -130,7 +153,10 @@ type Mutation {
   addActorReview(review: UpdateActorInputType!): ActorReviewObjectType!
   addMovieReview(review: CreateBasicMovieReviewInputType!): BasicReviewObjectType!
   editMovieReview(review: UpdateBasicMovieReviewInputType!): BasicReviewObjectType!
-  commentMovieReview(commend: CreateCommentOfReviewInputType!): BasicReviewObjectType!
+  commentMovieReview(comment: CreateCommentOfReviewInputType!): CommentOnReviewObjectType!
+  updateCommentMovieReview(comment: UpdateCommentOfReviewInputType!): CommentOnReviewObjectType!
+  createFullMovieReview(review: CreateFullMovieReviewInputType!): FullMovieReviewObjectType!
+  updateFullMovieReview(review: UpdateFullMovieReviewInputType!): FullMovieReviewObjectType!
 }
 
 input CreateOperatorInputType {
@@ -215,4 +241,32 @@ input CreateCommentOfReviewInputType {
   review: ExternalIdInputType!
   commentedBy: ExternalIdInputType!
   commentOn: ExternalIdInputType!
+}
+
+input UpdateCommentOfReviewInputType {
+  content: String!
+  review: ExternalIdInputType!
+  commentedBy: ExternalIdInputType!
+  commentOn: ExternalIdInputType!
+}
+
+input CreateFullMovieReviewInputType {
+  externalId: String!
+  createdAt: DateTime!
+  reviewer: ExternalIdInputType!
+  movie: ExternalIdInputType!
+  title: String!
+  reviewDescription: String!
+  negativePoints: String!
+  positivePoints: String!
+}
+
+input UpdateFullMovieReviewInputType {
+  externalId: String!
+  reviewer: ExternalIdInputType!
+  movie: ExternalIdInputType
+  title: String
+  reviewDescription: String
+  negativePoints: String
+  positivePoints: String
 }
