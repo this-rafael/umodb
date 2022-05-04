@@ -6,6 +6,7 @@ import { OperatorResolver } from '../graphql/resolvers/operator.resolver'
 import { MovieResolver } from '../graphql/resolvers/movie.resolver'
 import { StreamPlataformResolver } from '../graphql/resolvers/stream-plataform.resolver'
 import { CustomerResolver } from '../graphql/resolvers/customer.resolver'
+import { OperatorService } from '../../adapter/service/operator.service'
 
 @Module({
   imports: [
@@ -30,6 +31,11 @@ import { CustomerResolver } from '../graphql/resolvers/customer.resolver'
       },
     }),
   ],
-  providers: [OperatorResolver, MovieResolver, CustomerResolver],
+  providers: [
+    OperatorResolver,
+    MovieResolver,
+    CustomerResolver,
+    OperatorService,
+  ],
 })
 export class AppModule {}

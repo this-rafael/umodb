@@ -1,10 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-
-export type CreateOperatorInputTypeBuilder = {
-  name: string
-  email: string
-  password: string
-}
+import { CreateOperatorModel } from '../../../core/models/create-operator.model'
 
 @InputType()
 export class CreateOperatorInputType {
@@ -29,7 +24,7 @@ export class CreateOperatorInputType {
   @Field()
   public readonly password!: string
 
-  constructor(builder: CreateOperatorInputTypeBuilder) {
+  constructor(builder: CreateOperatorModel) {
     Object.assign(this, builder)
   }
 
@@ -41,9 +36,7 @@ export class CreateOperatorInputType {
     return `${this.toMap}`
   }
 
-  copyWith(
-    other: Partial<CreateOperatorInputTypeBuilder>,
-  ): CreateOperatorInputType {
+  copyWith(other: Partial<CreateOperatorModel>): CreateOperatorInputType {
     return new CreateOperatorInputType({
       name: other.name ?? this.name,
       email: other.email ?? this.email,

@@ -10,8 +10,8 @@ Promover uma aplicação para classificação de filmes.
 
 |              task               | read | in progress | in documentation | in test | done |
 | :-----------------------------: | ---- | ----------- | ---------------- | ------- | ---- |
-|    create gateway resolvers     | x    |             |                  |         |      |
-|        register operator        | x    |             |                  |         |      |
+|    create gateway resolvers     |      |             |                  |         | x    |
+|        register operator        |      | x           |                  |         |      |
 |         register movies         | x    |             |                  |         |      |
 |          update movies          | x    |             |                  |         |      |
 |         register actors         | x    |             |                  |         |      |
