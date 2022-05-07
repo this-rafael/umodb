@@ -4,10 +4,11 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify'
 import { ServerResponse } from 'node:http'
+import { GlobalEnv } from './infra/global.env.model'
 // import { PrismaConnector } from './adapter/connector/prisma.connector'
 import { AppModule } from './infra/nestjs/app.module'
 
-export const configureFastify = (fastifyAdapter: FastifyAdapter): void => {
+export function configureFastify(fastifyAdapter: FastifyAdapter): void {
   const fastifyInstanceNew = fastifyAdapter.getInstance()
   fastifyInstanceNew.addHook(
     'onRequest',
@@ -43,4 +44,6 @@ async function bootstrap(): Promise<void> {
 
   await app.listen(3000)
 }
+
+GlobalEnv.build()
 bootstrap()

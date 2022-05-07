@@ -4,18 +4,6 @@ import { CreateOperatorModel } from '../../../core/models/create-operator.model'
 @InputType()
 export class CreateOperatorInputType {
   @Field()
-  public readonly internalId!: number
-
-  @Field()
-  public readonly externalId!: string
-
-  @Field()
-  public readonly createdAt!: Date
-
-  @Field()
-  public readonly updatedAt!: Date
-
-  @Field()
   public readonly name!: string
 
   @Field()

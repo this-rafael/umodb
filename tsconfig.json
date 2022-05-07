@@ -13,10 +13,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "strict": true,
-    "noImplicitAny": true,
+    "strict": false,
+    "noImplicitAny": false,
     "strictNullChecks": true,
-    "strictFunctionTypes": true,
+    "strictFunctionTypes": false,
     "strictPropertyInitialization": true,
     "strictBindCallApply": true,
     "noImplicitThis": true,
@@ -24,6 +24,14 @@
     "alwaysStrict": true,
     "pretty": true,
     "disableSizeLimit": true,
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@app/kafka-topics": [
+        "libs/kafka-topics/src"
+      ],
+      "@app/kafka-topics/*": [
+        "libs/kafka-topics/src/*"
+      ]
+    }
   }
 }

@@ -2,7 +2,7 @@
   "language": "ts",
 
   "classesOutput": {
-    "core": "./src/models/",
+    "core": "./src/core/models/",
     "inputTypes": "./src/input-types/",
     "objectTypes": "./src/object-types/",
     "resolvers": "./src/resolvers/"

@@ -21,6 +21,7 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     'array-bracket-newline': 'warn',
     'import/prefer-default-export': 'off',
@@ -30,6 +31,7 @@ module.exports = {
     'no-useless-constructor': 'off',
     'no-shadow': 'off',
     'no-restricted-syntax': 'off',
+    'no-any': 'off',
     'prettier/prettier': [
       'error',
       {

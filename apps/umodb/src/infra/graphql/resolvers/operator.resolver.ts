@@ -1,34 +1,53 @@
-import { Query, Args, Mutation, Resolver } from '@nestjs/graphql'
+import {
+  Query,
+  Args,
+  Mutation,
+  Resolver,
+  Subscription,
+  PartialType,
+} from '@nestjs/graphql'
+import { PubSub } from 'graphql-subscriptions'
+import { KafkaTopic } from '@app/kafka-topics/kafka-topics.enum'
 import { OperatorService } from '../../../adapter/service/operator.service'
+
 import { CreateOperatorInputType } from '../dtos/create-operator.input-type'
-import { ExternalIdInputType } from '../dtos/external-id.input-type'
+import { MutationResultPromiseObjectType } from '../dtos/mutation-result-promise.object-type'
 import { OperatorObjectType } from '../dtos/operator.object-type'
+import { SubscriptionUniqueIdObjectType } from '../dtos/subscription-unique-id.object-type'
+
+const pubSub = new PubSub()
 
 @Resolver()
 export class OperatorResolver {
   constructor(private readonly operatorService: OperatorService) {}
 
-  @Mutation(() => OperatorObjectType)
+  @Mutation(() => MutationResultPromiseObjectType)
   async registerOperator(
+    @Args({ name: 'id', type: () => String }) subscriptionId: string,
     @Args('operator') operator: CreateOperatorInputType,
-  ): Promise<OperatorObjectType> {
-    console.log(operator)
-
-    return this.operatorService.registerOperator(operator)
+  ): Promise<MutationResultPromiseObjectType> {
+    return this.operatorService.registerOperator(operator, subscriptionId)
   }
 
-  @Query(() => OperatorObjectType)
-  async getOneOperator(
-    @Args('externalId') externalId: ExternalIdInputType,
-  ): Promise<OperatorObjectType> {
-    console.log(externalId)
-    return new OperatorObjectType({
-      externalId: '123',
-      name: '',
-      password: '',
-      email: '',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    })
+  @Query(() => SubscriptionUniqueIdObjectType)
+  async getUniqueId(): Promise<SubscriptionUniqueIdObjectType> {
+    const id = await this.operatorService.getSubscriptionUniqueId()
+    return new SubscriptionUniqueIdObjectType(id)
+  }
+
+  @Subscription(() => PartialType(OperatorObjectType), {
+    filter: (p, o) => {
+      return p.subscriptionId === o.subscriptionId
+    },
+    resolve: v => {
+      return v.data
+    },
+  })
+  subscribeOperatorCreation(
+    @Args({ name: 'id', type: () => String }) subscriptionId: string,
+  ): AsyncIterator<Partial<OperatorObjectType>> {
+    return this.operatorService.subscribeOperatorCreation(
+      KafkaTopic.COMMIT_CREATE_OPERATOR,
+    )
   }
 }

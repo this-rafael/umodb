@@ -32,7 +32,6 @@
       "sourceRoot": "apps/people_microservice/src",
       "compilerOptions": {
         "tsConfigPath": "apps/people_microservice/tsconfig.app.json"
-        
       }
     },
     "movie_microservice": {
@@ -42,6 +41,15 @@
       "sourceRoot": "apps/movie_microservice/src",
       "compilerOptions": {
         "tsConfigPath": "apps/movie_microservice/tsconfig.app.json"
+      }
+    },
+    "kafka-topics": {
+      "type": "library",
+      "root": "libs/kafka-topics",
+      "entryFile": "index",
+      "sourceRoot": "libs/kafka-topics/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/kafka-topics/tsconfig.lib.json"
       }
     }
   }

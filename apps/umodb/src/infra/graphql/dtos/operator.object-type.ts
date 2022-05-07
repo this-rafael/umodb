@@ -4,9 +4,6 @@ import { OperatorModel } from '../../../core/models/operator.model'
 @ObjectType()
 export class OperatorObjectType {
   @Field()
-  public readonly externalId!: string
-
-  @Field()
   public readonly createdAt!: Date
 
   @Field()

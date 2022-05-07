@@ -1,0 +1,190 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("MOVIE_DATABASE_URL")
+}
+
+model Actor {
+  internalId                         Int           @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  externalId                         Bytes         @unique(map: "EXTERNAL_ID") @default(dbgenerated("(uuid_to_bin(uuid(),true))")) @map("EXTERNAL_ID") @db.Binary(16)
+  createdAt                          DateTime?     @default(now()) @map("CREATED_AT") @db.DateTime(0)
+  updatedAt                          DateTime?     @default(now()) @map("UPDATED_AT") @db.DateTime(0)
+  name                               String        @map("NAME") @db.VarChar(300)
+  birtday                            DateTime      @map("BIRTHDAY") @db.Date
+  addedBy                            Int           @map("ADDED_BY") @db.UnsignedInt
+  editedBy                           Int?          @map("EDITED_BY") @db.UnsignedInt
+  OPERATOR_ACTOR_ADDED_BYToOPERATOR  Operator      @relation("ACTOR_ADDED_BYToOPERATOR", fields: [addedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_ACTOR_ADDED_BY_OPERATOR")
+  OPERATOR_ACTOR_EDITED_BYToOPERATOR Operator?     @relation("ACTOR_EDITED_BYToOPERATOR", fields: [editedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_ACTOR_EDITED_BY_OPERATOR")
+  ACTOR_REVIEW                       ActorReview[]
+  MOVIES_CAST                        MovieCast[]
+
+  @@index([addedBy], map: "FK_ACTOR_ADDED_BY_OPERATOR")
+  @@index([editedBy], map: "FK_ACTOR_EDITED_BY_OPERATOR")
+  @@map("ACTOR")
+}
+
+model ActorReview {
+  internalId Int      @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  review     String   @map("REVIEW") @db.Text
+  fkMovie    Int      @map("FK_MOVIE") @db.UnsignedInt
+  fkActor    Int      @map("FK_ACTOR") @db.UnsignedInt
+  fkReviewer Int      @map("FK_REVIEWER") @db.UnsignedInt
+  actor      Actor    @relation(fields: [fkActor], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_ACTOR_REVIEW_ACTOR")
+  movie      Movie    @relation(fields: [fkMovie], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_ACTOR_REVIEW_MOVIE")
+  REVIEWER   Reviewer @relation(fields: [fkReviewer], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_ACTOR_REVIEW_REVIEWER")
+
+  @@index([fkActor], map: "FK_ACTOR_REVIEW_ACTOR")
+  @@index([fkMovie], map: "FK_ACTOR_REVIEW_MOVIE")
+  @@index([fkReviewer], map: "FK_ACTOR_REVIEW_REVIEWER")
+  @@map("ACTOR_REVIEW")
+}
+
+model Catalog {
+  internalId        Int              @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  fkStreamPlataform Int?             @map("FK_STREAM_PLATFORM") @db.UnsignedInt
+  fkMovie           Int?             @map("FK_MOVIE") @db.UnsignedInt
+  createdAt         DateTime?        @default(now()) @map("CREATED_AT") @db.DateTime(0)
+  updatedAt         DateTime?        @default(now()) @map("UPDATED_AT") @db.DateTime(0)
+  addedBy           Int              @map("ADDED_BY") @db.UnsignedInt
+  editedBy          Int?             @map("EDITED_BY") @db.UnsignedInt
+  addedByOperator   Operator         @relation("CATALOG_ADDED_BYToOPERATOR", fields: [addedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_CATALOG_ADDED_BY_OPERATOR")
+  editedByOperator  Operator?        @relation("CATALOG_EDITED_BYToOPERATOR", fields: [editedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_CATALO_EDITED_BY_OPERATOR")
+  MOVIE             Movie?           @relation(fields: [fkMovie], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_CATALOG_MOVIE")
+  STREAM_PLATFORM   StreamPlataform? @relation(fields: [fkStreamPlataform], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_CATALOG_STREAM_PLATFORM")
+
+  @@index([addedBy], map: "FK_CATALOG_ADDED_BY_OPERATOR")
+  @@index([fkMovie], map: "FK_CATALOG_MOVIE")
+  @@index([fkStreamPlataform], map: "FK_CATALOG_STREAM_PLATFORM")
+  @@index([editedBy], map: "FK_CATALO_EDITED_BY_OPERATOR")
+  @@map("CATALOG")
+}
+
+model FullMovieReview {
+  internalId           Int                 @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  externalId           Bytes               @unique(map: "EXTERNAL_ID") @default(dbgenerated("(uuid_to_bin(uuid(),true))")) @map("EXTERNAL_ID") @db.Binary(16)
+  createdAt            DateTime?           @default(now()) @map("CREATED_AT") @db.DateTime(0)
+  updatedAt            DateTime?           @default(now()) @map("UPDATED_AT") @db.DateTime(0)
+  fkReviewer           Int                 @map("FK_REVIEWER") @db.UnsignedInt
+  title                String              @map("TITLE") @db.VarChar(150)
+  reviewDescription    String              @map("REVIEW_DESCRIPTION") @db.VarChar(600)
+  negativePoints       String?             @map("NEGATIVES_POINTS") @db.VarChar(200)
+  positivePoints       String?             @map("POSITIVE_POINTS") @db.VarChar(200)
+  REVIEWER             Reviewer            @relation(fields: [fkReviewer], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_FULL_MOVIE_REVIEW_REVIEWER")
+  MOVIE_SCORE_ON_TOPIC MovieScoreOnTopic[]
+
+  @@index([fkReviewer], map: "FK_FULL_MOVIE_REVIEW_REVIEWER")
+  @@map("FULL_MOVIE_REVIEW")
+}
+
+model Movie {
+  internalId       Int           @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  externalId       Bytes         @unique(map: "EXTERNAL_ID") @default(dbgenerated("(uuid_to_bin(uuid(),true))")) @map("EXTERNAL_ID") @db.Binary(16)
+  createdAt        DateTime?     @default(now()) @map("CREATED_AT") @db.DateTime(0)
+  updatedAt        DateTime?     @default(now()) @map("UPDATED_AT") @db.DateTime(0)
+  title            String        @map("TITLE") @db.VarChar(150)
+  authorName       String        @map("AUTHOR_NAME") @db.VarChar(300)
+  addedBy          Int           @map("ADDED_BY") @db.UnsignedInt
+  editedBy         Int?          @map("EDITED_BY") @db.UnsignedInt
+  addedByOperator  Operator      @relation("MOVIE_ADDED_BYToOPERATOR", fields: [addedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_MOVIE_ADDED_BY_OPERATOR")
+  editedByOperator Operator?     @relation("MOVIE_EDITED_BYToOPERATOR", fields: [editedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_MOVIE_EDITED_BY_OPERATOR")
+  actorReview      ActorReview[]
+  catalog          Catalog[]
+  MOVIES_CAST      MovieCast[]
+
+  @@index([addedBy], map: "FK_MOVIE_ADDED_BY_OPERATOR")
+  @@index([editedBy], map: "FK_MOVIE_EDITED_BY_OPERATOR")
+  @@map("MOVIE")
+}
+
+model MovieCast {
+  internalId       Int       @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  fkMovie          Int       @map("FK_MOVIE") @db.UnsignedInt
+  fkActor          Int       @map("FK_ACTOR") @db.UnsignedInt
+  addedBy          Int       @map("ADDED_BY") @db.UnsignedInt
+  editedBy         Int?      @map("EDITED_BY") @db.UnsignedInt
+  addedByOperator  Operator  @relation("MOVIES_CAST_ADDED_BYToOPERATOR", fields: [addedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_MOVIES_CAST_ADDED_BY_OPERATOR")
+  editedByOperator Operator? @relation("MOVIES_CAST_EDITED_BYToOPERATOR", fields: [editedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_MOVIES_CAST_EDITED_BY_OPERATOR")
+  actor            Actor     @relation(fields: [fkActor], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_MOVIE_CAST_ACTOR")
+  movie            Movie     @relation(fields: [fkMovie], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_MOVIE_CAST_MOVIE")
+
+  @@index([addedBy], map: "FK_MOVIES_CAST_ADDED_BY_OPERATOR")
+  @@index([editedBy], map: "FK_MOVIES_CAST_EDITED_BY_OPERATOR")
+  @@index([fkActor], map: "FK_MOVIE_CAST_ACTOR")
+  @@index([fkMovie], map: "FK_MOVIE_CAST_MOVIE")
+  @@map("MOVIES_CAST")
+}
+
+model MovieScoreOnTopic {
+  internalId        Int             @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  externalId        Bytes           @map("EXTERNAL_ID") @db.Binary(16)
+  score             Int             @map("SCORE") @db.TinyInt
+  fkFullMovieReview Int             @map("FK_FULL_MOVIE_REVIEW") @db.UnsignedInt
+  fkTopic           Int             @map("FK_TOPIC") @db.UnsignedInt
+  fullMovieReview   FullMovieReview @relation(fields: [fkFullMovieReview], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_MOVIE_SCORE_ON_TOPIC_MOVIE")
+  REVIEW_TOPIC      ReviewTopic     @relation(fields: [fkTopic], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_MOVIE_SCORE_ON_TOPIC_TOPIC")
+
+  @@index([fkFullMovieReview], map: "FK_MOVIE_SCORE_ON_TOPIC_MOVIE")
+  @@index([fkTopic], map: "FK_MOVIE_SCORE_ON_TOPIC_TOPIC")
+  @@map("MOVIE_SCORE_ON_TOPIC")
+}
+
+model Operator {
+  internalId            Int               @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  createdAt             DateTime?         @default(now()) @map("CREATED_AT") @db.Timestamp(0)
+  updatedAt             DateTime?         @default(now()) @map("UPDATED_AT") @db.DateTime(0)
+  name                  String            @map("NAME") @db.VarChar(300)
+  email                 String            @unique(map: "EMAIL") @map("EMAIL") @db.VarChar(150)
+  password              String            @map("PASSWORD") @db.Text
+  actorsAdded           Actor[]           @relation("ACTOR_ADDED_BYToOPERATOR")
+  actorsEdited          Actor[]           @relation("ACTOR_EDITED_BYToOPERATOR")
+  catalogAdded          Catalog[]         @relation("CATALOG_ADDED_BYToOPERATOR")
+  catalogEdited         Catalog[]         @relation("CATALOG_EDITED_BYToOPERATOR")
+  moviesAdded           Movie[]           @relation("MOVIE_ADDED_BYToOPERATOR")
+  moviesEdited          Movie[]           @relation("MOVIE_EDITED_BYToOPERATOR")
+  movieCastAdded        MovieCast[]       @relation("MOVIES_CAST_ADDED_BYToOPERATOR")
+  movieCastEdited       MovieCast[]       @relation("MOVIES_CAST_EDITED_BYToOPERATOR")
+  streamPlataformAdded  StreamPlataform[] @relation("OPERATORToSTREAM_PLATFORM_ADDED_BY")
+  streamPlataformEdited StreamPlataform[] @relation("OPERATORToSTREAM_PLATFORM_EDITED_BY")
+
+  @@map("OPERATOR")
+}
+
+model Reviewer {
+  internalId      Int               @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  externalId      Bytes             @map("EXTERNAL_FK") @db.Binary(16)
+  createdAt       DateTime?         @default(now()) @map("CREATED_AT") @db.DateTime(0)
+  updatedAt       DateTime?         @default(now()) @map("UPDATED_AT") @db.DateTime(0)
+  name            String            @map("NAME") @db.VarChar(300)
+  actorReview     ActorReview[]
+  fullMovieReview FullMovieReview[]
+
+  @@map("REVIEWER")
+}
+
+model ReviewTopic {
+  internalId        Int                 @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  title             String              @unique(map: "TITLE") @map("TITLE") @db.VarChar(150)
+  movieScoreOnTopic MovieScoreOnTopic[]
+
+  @@map("REVIEW_TOPIC")
+}
+
+model StreamPlataform {
+  internalId       Int       @id @default(autoincrement()) @map("INTERNAL_ID") @db.UnsignedInt
+  externalId       Bytes     @unique(map: "EXTERNAL_ID") @default(dbgenerated("(uuid_to_bin(uuid(),true))")) @map("EXTERNAL_ID") @db.Binary(16)
+  createdAt        DateTime? @default(now()) @map("CREATED_AT") @db.DateTime(0)
+  updatedAt        DateTime? @default(now()) @map("UPDATED_AT") @db.DateTime(0)
+  name             String    @unique(map: "NAME") @map("NAME") @db.VarChar(150)
+  addedBy          Int       @map("ADDED_BY") @db.UnsignedInt
+  editedBy         Int?      @map("EDITED_BY") @db.UnsignedInt
+  addedByOperator  Operator  @relation("OPERATORToSTREAM_PLATFORM_ADDED_BY", fields: [addedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_STREAM_PLATFORM_ADDED_BY_OPERATOR")
+  editedByOperator Operator? @relation("OPERATORToSTREAM_PLATFORM_EDITED_BY", fields: [editedBy], references: [internalId], onDelete: NoAction, onUpdate: NoAction, map: "FK_STREAM_PLATFORM_EDITED_BY_OPERATOR")
+  catalog          Catalog[]
+
+  @@index([addedBy], map: "FK_STREAM_PLATFORM_ADDED_BY_OPERATOR")
+  @@index([editedBy], map: "FK_STREAM_PLATFORM_EDITED_BY_OPERATOR")
+  @@map("STREAM_PLATFORM")
+}

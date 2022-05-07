@@ -1,7 +1,11 @@
 import { OnModuleInit, INestApplication } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
+import { OrmProtocol } from '../../core/protocols/orm.protocol'
 
-export class PrismaConnector extends PrismaClient implements OnModuleInit {
+export class PrismaConnector
+  extends PrismaClient
+  implements OrmProtocol, OnModuleInit
+{
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   async onModuleInit() {
     await this.$connect()
