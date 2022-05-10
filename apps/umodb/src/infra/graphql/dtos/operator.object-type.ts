@@ -32,7 +32,6 @@ export class OperatorObjectType {
 
   copyWith(other: Partial<OperatorModel>): OperatorObjectType {
     return new OperatorObjectType({
-      externalId: other.externalId ?? this.externalId,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,
       name: other.name ?? this.name,

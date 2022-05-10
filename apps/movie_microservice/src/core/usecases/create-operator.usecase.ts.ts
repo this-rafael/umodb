@@ -16,12 +16,12 @@ export class CreateOperatorUsecase implements CreateOperatorStrategy {
   async call(operator: CreateOperatorModel): Promise<void> {
     const { name, email, createdAt }: OperatorModel =
       await this.createOperatorProtocol.call(operator)
+
     await this.eventPublisher.send({
       data: [
         {
-          name,
-          email,
-          createdAt,
+          subscriptionId: operator.subscriptionId,
+          data: { name, email, createdAt: new Date() },
         },
       ],
 

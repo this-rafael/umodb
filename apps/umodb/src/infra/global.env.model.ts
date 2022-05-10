@@ -7,4 +7,8 @@ export class GlobalEnv {
   }
 
   public readonly useKafka = true
+
+  public readonly host: string = 'localhost'
+
+  public readonly port: string = '9094'
 }

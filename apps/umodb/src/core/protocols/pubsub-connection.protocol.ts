@@ -1,5 +1,5 @@
-import { PubSub } from 'graphql-subscriptions'
+import { PubSubEngine } from 'graphql-subscriptions'
 
 export abstract class GetPubSubProtocol {
-  abstract getPubSub(): PubSub
+  abstract getPubSub(topic: string): PubSubEngine
 }

@@ -31,6 +31,12 @@
       ],
       "@app/kafka-topics/*": [
         "libs/kafka-topics/src/*"
+      ],
+      "@app/fastify-adapter-configure": [
+        "libs/fastify-adapter-configure/src"
+      ],
+      "@app/fastify-adapter-configure/*": [
+        "libs/fastify-adapter-configure/src/*"
       ]
     }
   }

@@ -1,3 +1,3 @@
 export abstract class EventSubscriberStrategy {
-  abstract subscribe<T>(topic: string): AsyncIterableIterator<T>
+  abstract subscribe<T>(topic: string): AsyncIterator<T>
 }

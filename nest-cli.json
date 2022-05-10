@@ -51,6 +51,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/kafka-topics/tsconfig.lib.json"
       }
+    },
+    "fastify-adapter-configure": {
+      "type": "library",
+      "root": "libs/fastify-adapter-configure",
+      "entryFile": "index",
+      "sourceRoot": "libs/fastify-adapter-configure/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/fastify-adapter-configure/tsconfig.lib.json"
+      }
     }
   }
 }
