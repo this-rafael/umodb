@@ -2,8 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""
+This object represents a promise of creating a generic object
+"""
 type MutationResultPromiseObjectType {
+  """
+  This field mark the max time of waiting of the creation result
+  """
   expectedResultAt: DateTime!
+
+  """
+  This field mark the timestamp of creation
+  """
   createdAt: DateTime!
 }
 
@@ -20,7 +30,13 @@ type OperatorObjectType {
   password: String!
 }
 
+"""
+SubscriptionUniqueId is a DTO for subscription unique id
+"""
 type SubscriptionUniqueIdObjectType {
+  """
+  Subscription unique id
+  """
   id: String!
 }
 
@@ -135,13 +151,24 @@ type LovedMoviesObjectType {
 }
 
 type Query {
+  """
+  Get subscription unique id returns a unique id for subscription for allow the listen realtime events
+  """
   getUniqueId: SubscriptionUniqueIdObjectType!
   getOneMovie(addedBy: ExternalIdInputType!): MovieObjectType!
   getActorsReview(movieId: ExternalIdInputType!): [ActorReviewObjectType!]!
-  getMovieInfoByCustomer(customerId: ExternalIdInputType!): MovieInfoByCustumerObjectType!
-  getAllBasicMovieReview(movieId: ExternalIdInputType!): [FullMovieReviewObjectType!]!
-  getAllFullMovieReview(movieId: ExternalIdInputType!): [FullMovieReviewObjectType!]!
-  getAllCommendOnBasicReview(review: ExternalIdInputType!): [CommentOnReviewObjectType!]!
+  getMovieInfoByCustomer(
+    customerId: ExternalIdInputType!
+  ): MovieInfoByCustumerObjectType!
+  getAllBasicMovieReview(
+    movieId: ExternalIdInputType!
+  ): [FullMovieReviewObjectType!]!
+  getAllFullMovieReview(
+    movieId: ExternalIdInputType!
+  ): [FullMovieReviewObjectType!]!
+  getAllCommendOnBasicReview(
+    review: ExternalIdInputType!
+  ): [CommentOnReviewObjectType!]!
   getOneCustomer(customerId: ExternalIdInputType!): CustomerObjectType!
 }
 
@@ -150,21 +177,38 @@ input ExternalIdInputType {
 }
 
 type Mutation {
-  registerOperator(subscriptionId: String!, operator: CreateOperatorInputType!): MutationResultPromiseObjectType!
+  registerOperator(
+    subscriptionId: String!
+    operator: CreateOperatorInputType!
+  ): MutationResultPromiseObjectType!
   registerMovie(movie: CreateMovieInputType!): MovieObjectType!
   editMovie(movie: UpdateMovieInputType!): MovieObjectType!
   addScoreMovie(score: CreateMovieScoreInputType!): MovieScoreObjectType!
   editScoreMovie(score: UpdateMovieScoreInputType!): MovieScoreObjectType!
   registerCustomer(customer: CreateCustomerInputType!): CustomerObjectType!
-  toggleLoveMovie(loveMovie: CreateLovedMoviesInputType!): LovedMoviesObjectType!
+  toggleLoveMovie(
+    loveMovie: CreateLovedMoviesInputType!
+  ): LovedMoviesObjectType!
   editActorReview(review: CreateActorReviewInput!): ActorReviewObjectType!
   addActorReview(review: UpdateActorInputType!): ActorReviewObjectType!
-  addMovieReview(review: CreateBasicMovieReviewInputType!): BasicReviewObjectType!
-  editMovieReview(review: UpdateBasicMovieReviewInputType!): BasicReviewObjectType!
-  commentMovieReview(comment: CreateCommentOfReviewInputType!): CommentOnReviewObjectType!
-  updateCommentMovieReview(comment: UpdateCommentOfReviewInputType!): CommentOnReviewObjectType!
-  createFullMovieReview(review: CreateFullMovieReviewInputType!): FullMovieReviewObjectType!
-  updateFullMovieReview(review: UpdateFullMovieReviewInputType!): FullMovieReviewObjectType!
+  addMovieReview(
+    review: CreateBasicMovieReviewInputType!
+  ): BasicReviewObjectType!
+  editMovieReview(
+    review: UpdateBasicMovieReviewInputType!
+  ): BasicReviewObjectType!
+  commentMovieReview(
+    comment: CreateCommentOfReviewInputType!
+  ): CommentOnReviewObjectType!
+  updateCommentMovieReview(
+    comment: UpdateCommentOfReviewInputType!
+  ): CommentOnReviewObjectType!
+  createFullMovieReview(
+    review: CreateFullMovieReviewInputType!
+  ): FullMovieReviewObjectType!
+  updateFullMovieReview(
+    review: UpdateFullMovieReviewInputType!
+  ): FullMovieReviewObjectType!
 }
 
 input CreateOperatorInputType {
@@ -276,5 +320,8 @@ input UpdateFullMovieReviewInputType {
 }
 
 type Subscription {
+  """
+  This subscription allow to listen the creation of operator on kafka topic
+  """
   subscribeOperatorCreation(subscriptionId: String!): OperatorObjectType!
 }

@@ -6,35 +6,39 @@
 
 Promover uma aplicação para classificação de filmes.
 
+### Documentação da API GRAPHQL 
+Você pode acessar a documentação publica da api no arquivo: [index.html](./apps/umodb/docs/public/index.html)
+Pode acessar a documentação das interfaces no arquivo: [index.html]()
+
 ## Task Progress
 
-|              task               | read | in progress | in documentation | in test | done |
-| :-----------------------------: | ---- | ----------- | ---------------- | ------- | ---- |
-|    create gateway resolvers     |      |             |                  |         | x    |
-|        register operator        |      | x           |                  |         |      |
-|         register movies         | x    |             |                  |         |      |
-|          update movies          | x    |             |                  |         |      |
-|         register actors         | x    |             |                  |         |      |
-|    register stream plataform    | x    |             |                  |         |      |
-| update stream plataform catalog | x    |             |                  |         |      |
-|        register customer        | x    |             |                  |         |      |
-|         update customer         | x    |             |                  |         |      |
-|           like movie            | x    |             |                  |         |      |
-|          unlike movie           | x    |             |                  |         |      |
-|       create score movie        | x    |             |                  |         |      |
-|        edit movie score         | x    |             |                  |         |      |
-|       list actor reviews        | x    |             |                  |         |      |
-|       create actor review       | x    |             |                  |         |      |
-|        edit actor review        | x    |             |                  |         |      |
-|   list basic review on movie    | x    |             |                  |         |      |
-|  create basic review on movie   | x    |             |                  |         |      |
-|  update basic review on movie   | x    |             |                  |         |      |
-|  list comments on basic review  | x    |             |                  |         |      |
-|     comment on basic review     | x    |             |                  |         |      |
-|  edit commend on basic review   | x    |             |                  |         |      |
-|     list full movie review      | x    |             |                  |         |      |
-|    create full movie review     | x    |             |                  |         |      |
-|    update full moview review    | x    |             |                  |         |      |
+|              task               | read | in progress | in documentation                   | in test | done |
+| :-----------------------------: | ---- | ----------- | ---------------------------------- | ------- | ---- |
+|    create gateway resolvers     | ✔️   | ✔️          |                                    |         |      |
+|        register operator        | ✔️   | ✔️          | [Doc](./docs/register-operator.md) |         |      |
+|         register movies         | ✔️   |             |                                    |         |      |
+|          update movies          | ✔️   |             |                                    |         |      |
+|         register actors         | ✔️   |             |                                    |         |      |
+|    register stream plataform    | ✔️   |             |                                    |         |      |
+| update stream plataform catalog | ✔️   |             |                                    |         |      |
+|        register customer        | ✔️   |             |                                    |         |      |
+|         update customer         | ✔️   |             |                                    |         |      |
+|           like movie            | ✔️   |             |                                    |         |      |
+|          unlike movie           | ✔️   |             |                                    |         |      |
+|       create score movie        | ✔️   |             |                                    |         |      |
+|        edit movie score         | ✔️   |             |                                    |         |      |
+|       list actor reviews        | ✔️   |             |                                    |         |      |
+|       create actor review       | ✔️   |             |                                    |         |      |
+|        edit actor review        | ✔️   |             |                                    |         |      |
+|   list basic review on movie    | ✔️   |             |                                    |         |      |
+|  create basic review on movie   | ✔️   |             |                                    |         |      |
+|  update basic review on movie   | ✔️   |             |                                    |         |      |
+|  list comments on basic review  | ✔️   |             |                                    |         |      |
+|     comment on basic review     | ✔️   |             |                                    |         |      |
+|  edit commend on basic review   | ✔️   |             |                                    |         |      |
+|     list full movie review      | ✔️   |             |                                    |         |      |
+|    create full movie review     | ✔️   |             |                                    |         |      |
+|    update full moview review    | ✔️   |             |                                    |         |      |
 
 ## Casos de uso
 

@@ -1,12 +1,15 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
 
-@ObjectType()
+@ObjectType({
+  description: 'SubscriptionUniqueId is a DTO for subscription unique id',
+})
 export class SubscriptionUniqueIdObjectType {
-  @Field(() => String)
+  @Field(() => String, {
+    description: 'Subscription unique id',
+  })
   public id!: string
 
   constructor(id: string) {
-    console.log(id)
     this.id = id
   }
 }

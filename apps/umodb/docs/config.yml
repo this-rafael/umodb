@@ -1,0 +1,206 @@
+# This config will not run "as-is" and will need to be modified. You can see a minimal working
+# config in /examples/config.yml
+
+spectaql:
+  # Optional string specifying how to build and include CSS for the output:
+  #   full: will include a very opinionated set of CSS to make the output look good
+  #   basic: will include a very minimal set of CSS mostly used for layout purposes.
+  #     You can then season to taste with your own additional CSS
+  #
+  # Default: full
+  cssBuildMode: full # or basic
+
+introspection:
+  schemaFile: ./src/schema.gql
+
+  #
+  #
+  ##############################################
+
+  ##############################################
+  # These options are for random display or augmentation related things that didn't
+  # really fit anywhere else.
+  #
+
+  # Whether you would like to strip any trailing commas from the descriptions to keep
+  # things fresh and clean.
+  #
+  # Default: false
+  removeTrailingPeriodFromDescriptions: false
+
+  #
+  #
+  ##############################################
+
+  # The path to a key from which to read the documentation-related metadata at each level of your metadata file.
+  # Defaults to 'documentation', but in case you use a different name, or have a complex/nested metadata structure, you can
+  # specify it here.
+  #
+  # Default: documentation
+  metadatasReadPath: documentation
+
+  # The metadata that was just read from the above key path will be woven into your Introspection Query results.
+  # This option specifies the key path where that data will be written at each level.
+  #
+  #   ***
+  #   In order to ensure that the metadata you've written can be found later on down the line, this value
+  #   should be set the same as the "metadatasPath" option below
+  #   ***
+  #
+  # Defaults to 'documentation', but in case you have a complex/nested metadata structure, you can
+  # specify it here.
+  #
+  # Default: documentation
+  metadatasWritePath: documentation
+
+  #
+  #
+  ##############################################
+
+  ##############################################
+  # These options specify how, where and if any "metadata" information is to be found, or
+  # used/ignored when processing your documentation.
+  #
+
+  # The key path in your Introspection Query results where metadata supported by this library can
+  # be found.
+  # Defaults to 'documentation', but in case you have a complex/nested metadata structure, you can
+  # specify it here.
+  #
+  # Default: documentation
+  metadatasPath: documentation
+
+  # Whether or not to look for and use metadata in your data. If turned off, metadata will be ignored
+  # even if it's there
+  #
+  # Default: true
+  metadatas: true
+
+  #
+  #
+  ##############################################
+
+  ##############################################
+  # These options specify what the default behavior should be
+  # (regarding documented vs non-documented) in the absence of
+  # metadata directives on a given item
+
+  # Whether to document any Queries at all, in the absence of a metadata directive
+  # Default: true
+  queriesDocumentedDefault: true
+  # Whether to document an individual Query, in the absence of a metadata directive
+  # Default: true
+  queryDocumentedDefault: true
+  # Whether to document a Query Argument, in the absence of a metadata directive
+  # Default: true
+  queryArgDocumentedDefault: true
+  # Hide any Queries with undocumented return types so as not to reference something
+  # that seemingly does not exist.
+  # Default: true
+  hideQueriesWithUndocumentedReturnType: true
+
+  # Whether to document any Mutations at all, in the absence of a metadata directive
+  # Default: true
+  mutationsDocumentedDefault: true
+  # Whether to document an individual Mutation, in the absence of a metadata directive
+  # Default: true
+  mutationDocumentedDefault: true
+  # Whether to document a Mutation Argument, in the absence of a metadata directive
+  # Default: true
+  mutationArgDocumentedDefault: true
+  # Hide any Mutations with undocumented return types so as not to reference something
+  # that seemingly does not exist.
+  # Default: true
+  hideMutationsWithUndocumentedReturnType: true
+
+  # Whether to document any Types at all
+  # Default: true
+  typesDocumented: true
+  # Whether to document an individual Type, in the absence of a metadata directive
+  # Default: true
+  typeDocumentedDefault: true
+  # Whether to document an individual Field, in the absence of a metadata directive
+  # Default: true
+  fieldDocumentedDefault: true
+  # Whether to document an individual Argument, in the absence of a metadata directive
+  # Default: true
+  argDocumentedDefault: true
+  # Hide any fields with undocumented return types so as not to reference something
+  # that seemingly does not exist.
+  # Default: true
+  hideFieldsWithUndocumentedReturnType: true
+
+  #
+  #
+  ##############################################
+
+servers:
+  # NOTE: If not using introspection.url OR servers[], you need to provide x-swaggerUrl
+  # to satisfy the URL Swagger requirement.
+
+  # same format as for OpenAPI Specification https://swagger.io/specification/#server-object
+
+  - url: https://yoursite.com/graphql
+    description: Production Server
+    # Indicates to use this server's URL as the typical GraphQL request base in the documentation
+    # If no server entries have this indicator, the first server's URL will be used.
+    # If no server entries are defined at all, the Introspection URL will be used.
+    production: true
+
+info:
+  # Tries to adhere to OpenAPI Specification https://swagger.io/specification/#info-object
+  # Will be used to populate the Welcome section of the output
+
+  ##############################################
+  # Introduction area flags
+  #
+
+  # Set to true to do no Introduction area rendering at all. Supersedes the below options
+  # Default: false
+  x-hideIntroduction: false
+  # Set to true to not render a friendly Welcome section based on the description in this area
+  # Default: false
+  x-hideWelcome: false
+  # Set to true to not render your intro items
+  # Default: false
+  x-hideIntroItems: false
+
+  # Set to true to not render the deprecated label
+  # Default: false
+  x-hideIsDeprecated: false
+  # Set to true to not render the deprecation reason
+  # Default: false
+  x-hideDeprecationReason: false
+
+  #
+  ##############################################
+
+  description: DocumentaÃ§Ã£o da Api GRAPHQL
+  version: 1.0.0
+  title: umodb
+  # This is non-standard and optional. If omitted, will use "title". Also only relevant
+  # when building non-embedded.
+  x-htmlTitle: umodb
+  termsOfService: 'https://yoursite.com/terms'
+  contact:
+    name: umodb
+    email: email@umodb.com
+    url: https://umodb.com/support
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+  # A non-standard array of items to display in your Introduction Area
+  x-introItems:
+    # Can be a Title (for the Nav panel) + URL to simply add a link to somewhere
+    - title: umodb
+      url: umodb
+    # Can be a Title (for the Nav panel) + description (for the Content panel)
+
+  # If you really want to hide the "Documentation by" at the bottom of your output, you can do so here
+  # Default: false
+  x-hidePoweredBy: false
+
+  # If not using introspection.url OR servers[], you need to provide x-swaggerUrl
+  # to satisfy the URL Swagger requirement. This allows for that.
+  x-swaggerUrl: https://yoursite.com/graphql

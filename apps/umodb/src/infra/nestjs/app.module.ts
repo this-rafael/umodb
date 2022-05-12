@@ -24,8 +24,7 @@ import { EventPublisherProtocol } from '../../core/protocols/event-publisher.pro
 import { KafkaPublisherConnector } from '../../adapter/connectors/kafka-publisher.connector'
 import { CalculateMaxWaitingTimeConnector } from '../../adapter/connectors/calculate-max-waiting-time.connector'
 import { CalculateMaxWaitingTimeProtocol } from '../../core/protocols/calculate-max-waiting-time.protocol'
-import { EventSubscriberStrategy } from '../../core/strategies/event-subscriber.strategy'
-import { EventSubscriberUsecase } from '../../core/usecases/event-subscriber.usecase'
+
 import { GetPubSubProtocol } from '../../core/protocols/pubsub-connection.protocol'
 import { GetKafkaPubSubConnector } from '../../adapter/connectors/get-kafka-pub-sub.connector'
 import { KafkaPubSubProvider } from '../kafka/kafka-pub-sub.provider'
@@ -78,10 +77,6 @@ function getProvider(): Provider[] {
     {
       provide: CalculateMaxWaitingTimeProtocol,
       useClass: CalculateMaxWaitingTimeConnector,
-    },
-    {
-      provide: EventSubscriberStrategy,
-      useClass: EventSubscriberUsecase,
     },
     {
       provide: GetPubSubProtocol,

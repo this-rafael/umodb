@@ -1,20 +1,10 @@
-import {
-  Query,
-  Args,
-  Mutation,
-  Resolver,
-  Subscription,
-  Context,
-} from '@nestjs/graphql'
+import { Query, Args, Mutation, Resolver, Subscription } from '@nestjs/graphql'
 import { KafkaTopic } from '@app/kafka-topics/kafka-topics.enum'
-import { KafkaPubSub } from 'graphql-kafka-subscriptions'
-import { PubSub } from 'graphql-subscriptions'
 import { OperatorService } from '../../../adapter/service/operator.service'
 import { CreateOperatorInputType } from '../dtos/create-operator.input-type'
 import { MutationResultPromiseObjectType } from '../dtos/mutation-result-promise.object-type'
 import { OperatorObjectType } from '../dtos/operator.object-type'
 import { SubscriptionUniqueIdObjectType } from '../dtos/subscription-unique-id.object-type'
-import { GlobalEnv } from '../../global.env.model'
 import { KafkaPubSubProvider } from '../../kafka/kafka-pub-sub.provider'
 
 @Resolver()
@@ -33,7 +23,10 @@ export class OperatorResolver {
     return this.operatorService.registerOperator(operator, subscriptionId)
   }
 
-  @Query(() => SubscriptionUniqueIdObjectType)
+  @Query(() => SubscriptionUniqueIdObjectType, {
+    description:
+      'Get subscription unique id returns a unique id for subscription for allow the listen realtime events',
+  })
   async getUniqueId(): Promise<SubscriptionUniqueIdObjectType> {
     const id = await this.operatorService.getSubscriptionUniqueId()
     return new SubscriptionUniqueIdObjectType(id)
@@ -48,6 +41,7 @@ export class OperatorResolver {
       data.createdAt = new Date(data.createdAt)
       return p.data
     },
+    description: `This subscription allow to listen the creation of operator on kafka topic`,
   })
   subscribeOperatorCreation(
     @Args({ name: 'subscriptionId', type: () => String })
