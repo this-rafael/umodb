@@ -1,0 +1,73 @@
+{
+  "language": "ts",
+
+  "classesOutput": {
+    "core": "./src/core/models/",
+    "inputTypes": "./src/input-types/",
+    "objectTypes": "./src/object-types/",
+    "resolvers": "./src/resolvers/"
+  },
+  "schema": [
+    {
+      "sufix": "Strategy",
+      "extensionSufix": ".strategy",
+      "languageSufix": ".ts",
+      "defaultImplementsSuffix": "",
+      "defaultDependenciesSuffix": "",
+      "useDecorators": [],
+      "folder": "./src/core/strategies/",
+      "abstract": true,
+      "importsFrom": []
+    },
+    {
+      "sufix": "Usecase",
+      "extensionSufix": ".usecase",
+      "languageSufix": ".ts",
+      "defaultImplementsSuffix": "Strategy",
+      "defaultDependenciesSuffix": "Protocol",
+      "useDecorators": ["@Decorators.Inject()"],
+      "folder": "./src/core/usecases/",
+      "abstract": false,
+      "importsFrom": [
+        {
+          "path": "'../interfaces/interfaces.exports'",
+          "defaultSuffix": "Interface"
+        },
+        {
+          "path": "'../protocols/protocols.exports'",
+          "defaultSuffix": "Protocol"
+        }
+      ]
+    },
+    {
+      "sufix": "Protocol",
+      "extensionSufix": ".protocol",
+      "languageSufix": ".ts",
+      "defaultImplementsSuffix": "",
+      "defaultDependenciesSuffix": "",
+      "useDecorators": [],
+      "folder": "./src/core/protocols/",
+      "abstract": true,
+      "importsFrom": []
+    },
+    {
+      "sufix": "Connector",
+      "extensionSufix": ".connector",
+      "languageSufix": ".ts",
+      "defaultImplementsSuffix": "Protocol",
+      "defaultDependenciesSuffix": "",
+      "useDecorators": ["@Decorators.Inject()"],
+      "folder": "./src/adapter/connectors/",
+      "abstract": false,
+      "importsFrom": [
+        {
+          "path": "'../../core/protocols/protocols.exports'",
+          "defaultSuffix": "Protocol"
+        }
+      ]
+    }
+  ],
+  "exportsConfig": {
+    "extensionType": ".ts"
+  }
+}

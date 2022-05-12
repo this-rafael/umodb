@@ -1,19 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-
-export type OperatorObjectTypeBuilder = {
-  externalId: string
-  createdAt: Date
-  updatedAt: Date
-  name: string
-  email: string
-  password: string
-}
+import { OperatorModel } from '../../../core/models/operator.model'
 
 @ObjectType()
 export class OperatorObjectType {
-  @Field()
-  public readonly externalId!: string
-
   @Field()
   public readonly createdAt!: Date
 
@@ -29,7 +18,7 @@ export class OperatorObjectType {
   @Field()
   public readonly password!: string
 
-  constructor(builder: OperatorObjectTypeBuilder) {
+  constructor(builder: OperatorModel) {
     Object.assign(this, builder)
   }
 
@@ -41,9 +30,8 @@ export class OperatorObjectType {
     return `${this.toMap}`
   }
 
-  copyWith(other: Partial<OperatorObjectTypeBuilder>): OperatorObjectType {
+  copyWith(other: Partial<OperatorModel>): OperatorObjectType {
     return new OperatorObjectType({
-      externalId: other.externalId ?? this.externalId,
       createdAt: other.createdAt ?? this.createdAt,
       updatedAt: other.updatedAt ?? this.updatedAt,
       name: other.name ?? this.name,
