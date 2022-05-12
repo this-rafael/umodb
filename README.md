@@ -6,16 +6,34 @@
 
 Promover uma aplicação para classificação de filmes.
 
+#### Disclaimer:
+
+> Essa aplicação está sendo desenvolvida, e o progresso atual pode ser visto em Task Progress
+
+### Codigo Fonte:
+
+Caso deseje observar o codigo fonte da API, você deverá encontra-los na seção de `apps`
+Os microserviços: são umodb a api graphql, movie_microservices e people_microservices
+
+### Como Rodar:
+
+1. Execute `docker compose up -d`
+2. Instale as dependencias: `npm install`
+3. Rode migrações: Para isso você precisará acessar rodar os sql's: diretamente na base de dados, os sql's dos respectivos bancos podem ser encontrados na ./sql/, rode o arquivo `movie_ddl.sql` no banco mysql acessivel em `192.168.56.1:3380` no da base `movie_db` e username igual à `movie` e senha igual à `movie_db_password_123`.
+   rode o arquivo `customer_ddl.sql` no banco postgresql: acessivel em: `192.168.56.1:5432` nome da base `people_db` com senha e username iguais à `postgres`
+4. Gere os modelos prisma: `cd ./apps/movie_microservice/ ` e `npx prisma generate`(caso não funcione experimente instalar o prisma globalmente `npm install -g prisma` em seguida `cd ./apps/movie_microservice/ ` e `prisma generate`)
+5. Execute em terminais diferentes: `npm run start-core` para rodar a api graphql, `npm run start-movie` para inciiar o serviço de filmes, e `npm run start-people` para iniciar o serviço de clientes
+
 ### Documentação da API GRAPHQL
 
-Você pode acessar a documentação publica da api no arquivo: [index.html](./apps/umodb/docs/public/index.html)
-Pode acessar a documentação das interfaces no arquivo: [index.html]()
+Você pode acessar a documentação publica da api no arquivo: [index.html](./apps/umodb/docs/public/index.html) ( em breve online )
+Pode acessar a documentação das interfaces no arquivo: [index.html](./apps/umodb/docs/private/index.html) (em breve online)
 
 ## Task Progress
 
 |              task               | read | in progress | in documentation                     | in test | done |
 | :-----------------------------: | ---- | ----------- | ------------------------------------ | ------- | ---- |
-|    create gateway resolvers     | ✔️   | ✔️          |                                      |         |      |
+|    create gateway resolvers     | ✔️   | ✔️          | ✔️                                   |         |      |
 |        register operator        | ✔️   | ✔️          | ✔️[Doc](./docs/register-operator.md) |         |      |
 |         register movies         | ✔️   |             |                                      |         |      |
 |          update movies          | ✔️   |             |                                      |         |      |
