@@ -6,7 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2022",
+    "target": "ES5",
     "sourceMap": true,
     "outDir": "./dist",
     "incremental": true,
@@ -26,17 +26,17 @@
     "disableSizeLimit": true,
     "baseUrl": "./",
     "paths": {
-      "@app/kafka-topics": [
-        "libs/kafka-topics/src"
-      ],
-      "@app/kafka-topics/*": [
-        "libs/kafka-topics/src/*"
-      ],
-      "@app/fastify-adapter-configure": [
-        "libs/fastify-adapter-configure/src"
-      ],
+      "@app/kafka-topics": ["libs/kafka-topics/src"],
+      "@app/kafka-topics/*": ["libs/kafka-topics/src/*"],
+      "@app/fastify-adapter-configure": ["libs/fastify-adapter-configure/src"],
       "@app/fastify-adapter-configure/*": [
         "libs/fastify-adapter-configure/src/*"
+      ],
+      "@app/provider-generation-functions": [
+        "libs/provider-generation-functions/src"
+      ],
+      "@app/provider-generation-functions/*": [
+        "libs/provider-generation-functions/src/*"
       ]
     }
   }

@@ -17,11 +17,15 @@ export class CreateOperatorUsecase implements CreateOperatorStrategy {
     subscriptionId: string,
     topic: string,
   ): Promise<MutationResultPromiseModel> {
-    await this.eventPublisher.send({
+    const arr = await this.eventPublisher.send({
       subscriptionId,
       data: [operator],
       topic,
     })
+    if (arr.find(({ errorCode }) => errorCode === 1)) {
+      throw Error('PublishEventError')
+    }
+
     const now = new Date()
     return {
       createdAt: now,
