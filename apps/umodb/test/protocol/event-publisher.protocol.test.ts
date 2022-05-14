@@ -1,8 +1,9 @@
 import { expect } from 'chai'
 
 import { Test, TestingModule } from '@nestjs/testing'
-
+import { stub } from 'sinon'
 import { faker } from '@faker-js/faker'
+import { Producer } from '@nestjs/microservices/external/kafka.interface'
 import { getProvider } from '../../../../libs/provider-generation-functions/src'
 import { EventPublisherProtocol } from '../../src/core/protocols/event-publisher.protocol'
 import { KafkaPublisherConnector } from '../../src/adapter/connectors/kafka-publisher.connector'
@@ -12,10 +13,12 @@ import { KafkaPublisherConnector } from '../../src/adapter/connectors/kafka-publ
  */
 describe('EventPublisherProtocol', () => {
   let eventPublisherProtocol: EventPublisherProtocol
+  let kafkaProduce: Producer
+
   const mockedKafkaProducerResult = {
     topicName: faker.random.word(),
-    partition: faker.random.number(),
-    errorCode: faker.random.number(),
+    partition: faker.datatype.number(),
+    errorCode: faker.datatype.number(),
     offset: faker.random.word(),
     timestamp: faker.random.word(),
     baseOffset: faker.random.word(),
@@ -40,6 +43,7 @@ describe('EventPublisherProtocol', () => {
     eventPublisherProtocol = module.get<EventPublisherProtocol>(
       EventPublisherProtocol,
     )
+    kafkaProduce = module.get('KAFKA_PRODUCER')
   })
 
   /**
@@ -60,5 +64,31 @@ describe('EventPublisherProtocol', () => {
     })
 
     expect(result).to.be.deep.equal([mockedKafkaProducerResult])
+  })
+
+  /**
+   * Test eventPublisherProtocol.send() throws Error when 'KAFKA_PRODUCER' throws Error with message PublishEventError
+   */
+  it('should send event with Error with message PublishEventError', async () => {
+    stub(kafkaProduce, 'send').resolves([
+      {
+        errorCode: 1,
+        partition: faker.datatype.float(),
+        offset: faker.random.words(),
+        timestamp: new Date().toDateString(),
+        topicName: faker.random.word(),
+        baseOffset: faker.random.word(),
+      },
+    ])
+
+    try {
+      await eventPublisherProtocol.send<string>({
+        subscriptionId: 'subscriptionId',
+        data: ['hello', 'world'],
+        topic: 'topic',
+      })
+    } catch (e) {
+      expect(e.message).to.be.equal('PublishEventError')
+    }
   })
 })

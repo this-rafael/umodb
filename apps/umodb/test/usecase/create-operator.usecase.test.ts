@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import { faker } from '@faker-js/faker'
 import { stub } from 'sinon'
 import { Test, TestingModule } from '@nestjs/testing'
-
 import { CreateOperatorUsecase } from '../../src/core/usecases/create-operator.usecase'
 import { CreateOperatorStrategy } from '../../src/core/strategies/create-operator.strategy'
 import { EventPublisherProtocol } from '../../src/core/protocols/event-publisher.protocol'
@@ -59,44 +58,11 @@ describe('CreateOperatorUsecase', () => {
         name: faker.name.firstName(),
       },
       'test',
-      'test',
     )
 
     /** verify if operator is a object with createdAt equals to now and expectResultAt now + 5 seconds */
     expect(expectedResultAt).to.be.instanceOf(Date)
     expect(createdAt).to.be.instanceOf(Date)
     expect(expectedResultAt.getTime()).to.be.equal(createdAt.getTime() + 5000)
-  })
-
-  /**
-   * Test createOperatorUsecase.create() with EventPublisherProtocol returns a object with errorCode equals to 1, só create method returns and
-   * Named PublishEventError
-   */
-  it('should create operator with EventPublisherProtocol returns a object with errorCode equals to 1, só create method returns and Error with message PublishEventError', async () => {
-    stub(eventPublisher, 'send').resolves([
-      {
-        errorCode: 1,
-
-        partition: faker.datatype.float(),
-        offset: faker.random.words(),
-        timestamp: new Date().toDateString(),
-        topicName: faker.random.word(),
-        baseOffset: faker.random.word(),
-      },
-    ])
-    try {
-      await createOperatorStrategy.create(
-        {
-          email: faker.internet.email(),
-          password: faker.internet.password(),
-          name: faker.name.firstName(),
-        },
-        'test',
-        'test',
-      )
-    } catch (e) {
-      expect(e).to.be.instanceOf(Error)
-      expect(e.message).to.be.equal('PublishEventError')
-    }
   })
 })

@@ -1,4 +1,5 @@
 export enum KafkaTopic {
-  CREATE_OPERATOR = 'create-operator',
-  COMMIT_CREATE_OPERATOR = 'commit-create-operator',
+  CREATE_OPERATOR = 'CREATE_OPERATOR',
+  COMMIT_CREATE_OPERATOR = 'COMMIT_CREATE_OPERATOR',
+  CREATE_MOVIE = 'CREATE_MOVIE',
 }

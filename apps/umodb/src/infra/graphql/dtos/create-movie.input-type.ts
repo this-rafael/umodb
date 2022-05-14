@@ -1,13 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { CreateMovieModel } from '../../../core/models/create-movie.model'
 import { ExternalIdInputType } from './external-id.input-type'
-
-export type CreateMovieInputTypeBuilder = {
-  title: string
-  authorName: string
-  addedBy: { externalId: string }
-  addToPlataform: { externalId: string }
-  movieCast: { externalId: string }[]
-}
 
 @InputType()
 export class CreateMovieInputType {
@@ -26,7 +19,7 @@ export class CreateMovieInputType {
   @Field(() => [ExternalIdInputType])
   public readonly movieCast!: ExternalIdInputType[]
 
-  constructor(builder: CreateMovieInputTypeBuilder) {
+  constructor(builder: CreateMovieModel) {
     Object.assign(this, builder)
   }
 
@@ -38,7 +31,7 @@ export class CreateMovieInputType {
     return `${this.toMap}`
   }
 
-  copyWith(other: Partial<CreateMovieInputTypeBuilder>): CreateMovieInputType {
+  copyWith(other: Partial<CreateMovieModel>): CreateMovieInputType {
     return new CreateMovieInputType({
       movieCast: other.movieCast ?? this.movieCast,
       addToPlataform: other.addToPlataform ?? this.addToPlataform,

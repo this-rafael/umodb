@@ -1,5 +1,7 @@
+import { CreationResultModel } from '../models/creation-result.model'
+
 /**
- * This abstraction represents a strategy to publish any data on topic
+ * This abstraction represents a protocol to publish any data on topic
  */
 export abstract class EventPublisherProtocol {
   /**
@@ -9,22 +11,11 @@ export abstract class EventPublisherProtocol {
    */
   abstract send<T>({
     data,
-    topic,
     subscriptionId,
+    topic,
   }: {
-    data: T[]
     topic: string
+    data: T[]
     subscriptionId: string
-  }): Promise<
-    {
-      topicName: string
-      partition: number
-      errorCode: number
-      offset?: string
-      timestamp?: string
-      baseOffset?: string
-      logAppendTime?: string
-      logStartOffset?: string
-    }[]
-  >
+  }): Promise<CreationResultModel[]>
 }

@@ -10,7 +10,7 @@ export class KafkaPublisherConnector implements EventPublisherProtocol {
     private kafkaProducer: Producer,
   ) {}
 
-  send<T>({
+  async send<T>({
     data,
     topic,
     subscriptionId,
@@ -30,7 +30,7 @@ export class KafkaPublisherConnector implements EventPublisherProtocol {
       logStartOffset?: string
     }[]
   > {
-    return this.kafkaProducer.send({
+    const result = await this.kafkaProducer.send({
       topic,
       messages: data.map(data => ({
         key: topic,
@@ -40,5 +40,11 @@ export class KafkaPublisherConnector implements EventPublisherProtocol {
         }),
       })),
     })
+
+    if (result.find(({ errorCode }) => errorCode === 1)) {
+      throw Error('PublishEventError')
+    }
+
+    return result
   }
 }

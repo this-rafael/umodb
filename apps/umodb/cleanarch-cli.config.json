@@ -12,7 +12,7 @@
   },
   "commands": [
     {
-      "command": "-it --interface [commands...]",
+      "command": "-st --strategy [commands...]",
       "comment": "Generate an Interface"
     },
     {
@@ -30,7 +30,7 @@
   ],
   "schema": [
     {
-      "sufix": "Strategy",
+      "sufix": " ",
       "extensionSufix": ".strategy",
       "languageSufix": ".ts",
       "defaultImplementsSuffix": "",

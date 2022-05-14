@@ -1,32 +1,33 @@
 import { KafkaTopic } from '../../../../../libs/kafka-topics/src/kafka-topics.enum'
 import { Decorators } from '../../adapter/decorators/inject.decorator'
-import { CreateOperatorModel } from '../models/create-operator.model'
+import { CreateMovieModel } from '../models/create-movie.model'
 import { MutationResultPromiseModel } from '../models/mutation-result-promise.model'
 import { CalculateMaxWaitingTimeProtocol } from '../protocols/calculate-max-waiting-time.protocol'
 import { EventPublisherProtocol } from '../protocols/event-publisher.protocol'
-import { CreateOperatorStrategy } from '../strategies/create-operator.strategy'
+import { CreateMovieStrategy } from '../strategies/create-movie.strategy'
 
 @Decorators.Inject()
-export class CreateOperatorUsecase implements CreateOperatorStrategy {
+export class CreateMovieUsecase implements CreateMovieStrategy {
   constructor(
-    private readonly eventPublisher: EventPublisherProtocol,
-    private readonly calculateMaxWaitingTime: CalculateMaxWaitingTimeProtocol,
+    private readonly eventPublisherProtocolProtocol: EventPublisherProtocol,
+    private readonly calculateMaxWaitingTimeProtocolProtocol: CalculateMaxWaitingTimeProtocol,
   ) {}
 
   async create(
-    operator: CreateOperatorModel,
+    movie: CreateMovieModel,
     subscriptionId: string,
   ): Promise<MutationResultPromiseModel> {
-    await this.eventPublisher.send({
+    await this.eventPublisherProtocolProtocol.send({
       subscriptionId,
-      data: [operator],
-      topic: KafkaTopic.CREATE_OPERATOR,
+      data: [movie],
+      topic: KafkaTopic.CREATE_MOVIE,
     })
 
     const now = new Date()
     return {
       createdAt: now,
-      expectedResultAt: await this.calculateMaxWaitingTime.calculate(now),
+      expectedResultAt:
+        await this.calculateMaxWaitingTimeProtocolProtocol.calculate(now),
     }
   }
 }

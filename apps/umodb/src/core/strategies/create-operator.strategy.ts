@@ -15,6 +15,5 @@ export abstract class CreateOperatorStrategy {
   abstract create(
     operator: CreateOperatorModel,
     subscriptionId: string,
-    topic: string,
   ): Promise<MutationResultPromiseModel>
 }
