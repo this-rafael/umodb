@@ -60,6 +60,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/fastify-adapter-configure/tsconfig.lib.json"
       }
+    },
+    "provider-generation-functions": {
+      "type": "library",
+      "root": "libs/provider-generation-functions",
+      "entryFile": "index",
+      "sourceRoot": "libs/provider-generation-functions/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/provider-generation-functions/tsconfig.lib.json"
+      }
     }
   }
 }
