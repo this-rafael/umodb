@@ -1,14 +1,21 @@
+import { CreationResultModel } from '../models/creation-result.model'
+
+/**
+ * This abstraction represents a protocol to publish any data on topic
+ */
 export abstract class EventPublisherProtocol {
-  abstract send<T>({ data, topic }: { data: T[]; topic: string }): Promise<
-    {
-      topicName: string
-      partition: number
-      errorCode: number
-      offset?: string
-      timestamp?: string
-      baseOffset?: string
-      logAppendTime?: string
-      logStartOffset?: string
-    }[]
-  >
+  /**
+   *  @description This method describe a common contract to publish any data on topic
+   * @param params: EventPublisherParams - The params to publish the data
+   * @returns Promise with the result of the publish
+   */
+  abstract send<T>({
+    data,
+    subscriptionId,
+    topic,
+  }: {
+    topic: string
+    data: T[]
+    subscriptionId: string
+  }): Promise<CreationResultModel[]>
 }

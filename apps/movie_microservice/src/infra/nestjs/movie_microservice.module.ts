@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common'
 import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices'
 import { Producer } from '@nestjs/microservices/external/kafka.interface'
-import { CreateOperatorConnector } from '../../adapter/connectors/create-operator.connector.ts'
+import { CreateOperatorPrismaConnector } from '../../adapter/connectors/create-operator-prisma.connector.ts'
 import { KafkaPublisherConnector } from '../../adapter/connectors/kafka-publisher.connector'
-import { PrismaConnector } from '../../adapter/connectors/prisma.connector'
+import { PrismaHandler } from '../handler/prisma.handler'
 import { OperatorService } from '../../adapter/service/operator.service'
-import { CreateOperatorProtocol } from '../../core/protocols/create-operator.protocol.ts'
+import { RegisterOperatorProtocol } from '../../core/protocols/register-operator.protocol.ts'
 import { EventPublisherProtocol } from '../../core/protocols/event-publisher.protocol'
-import { CreateOperatorStrategy } from '../../core/strategies/create-operator.strategy.ts'
-import { CreateOperatorUsecase } from '../../core/usecases/create-operator.usecase.ts'
+import { CreateOperatorStrategy } from '../../core/strategies/register-operator.strategy.ts'
+import { CreateOperatorUsecase } from '../../core/usecases/register-operator.usecase.ts'
 import { OperatorController } from '../controllers/operator.controller'
 
 @Module({
@@ -37,7 +37,7 @@ import { OperatorController } from '../controllers/operator.controller'
       },
       inject: ['KAFKA_SERVICE'],
     },
-    PrismaConnector,
+    PrismaHandler,
 
     OperatorService,
     {
@@ -45,8 +45,8 @@ import { OperatorController } from '../controllers/operator.controller'
       useClass: CreateOperatorUsecase,
     },
     {
-      provide: CreateOperatorProtocol,
-      useClass: CreateOperatorConnector,
+      provide: RegisterOperatorProtocol,
+      useClass: CreateOperatorPrismaConnector,
     },
     {
       provide: EventPublisherProtocol,

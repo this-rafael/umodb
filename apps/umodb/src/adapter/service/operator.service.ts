@@ -4,6 +4,11 @@ import { CreateOperatorInputType } from '../../infra/graphql/dtos/create-operato
 import { MutationResultPromiseObjectType } from '../../infra/graphql/dtos/mutation-result-promise.object-type'
 import { Decorators } from '../decorators/inject.decorator'
 
+/**
+ * @description
+ * This class is responsible to transform the input of the Resolver request in the model of the strategy and call the strategy to execute the request.
+ * so the strategy response is transformed in the output of the Resolver.
+ */
 @Decorators.Inject()
 export class OperatorService {
   constructor(

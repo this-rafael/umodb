@@ -1,0 +1,365 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>umodb</title><meta name="description" content="Documentation for umodb"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">umodb</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1> umodb </h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#umodb" id="umodb" style="color: inherit; text-decoration: none;">
+  <h2>U.M.O.D.B</h2>
+</a>
+
+<a href="#universal-movie-opinion-database" id="universal-movie-opinion-database" style="color: inherit; text-decoration: none;">
+  <h2>Universal Movie Opinion Database</h2>
+</a>
+
+<a href="#objetivo" id="objetivo" style="color: inherit; text-decoration: none;">
+  <h3>Objetivo:</h3>
+</a>
+<p>Promover uma aplicação para classificação de filmes.</p>
+
+<a href="#disclaimer" id="disclaimer" style="color: inherit; text-decoration: none;">
+  <h4>Disclaimer:</h4>
+</a>
+<blockquote>
+<p>Essa aplicação está sendo desenvolvida, e o progresso atual pode ser visto em Task Progress</p>
+</blockquote>
+
+<a href="#codigo-fonte" id="codigo-fonte" style="color: inherit; text-decoration: none;">
+  <h3>Codigo Fonte:</h3>
+</a>
+<p>Caso deseje observar o codigo fonte da API, você deverá encontra-los na seção de <code>apps</code>
+Os microserviços: são umodb a api graphql, movie_microservices e people_microservices</p>
+
+<a href="#como-rodar" id="como-rodar" style="color: inherit; text-decoration: none;">
+  <h3>Como Rodar:</h3>
+</a>
+<ol>
+<li>Execute <code>docker compose up -d</code></li>
+<li>Instale as dependencias: <code>npm install</code></li>
+<li>Rode migrações: Para isso você precisará acessar rodar os sql&#39;s: diretamente na base de dados, os sql&#39;s dos respectivos bancos podem ser encontrados na ./sql/, rode o arquivo <code>movie_ddl.sql</code> no banco mysql acessivel em <code>192.168.56.1:3380</code> no da base <code>movie_db</code> e username igual à <code>movie</code> e senha igual à <code>movie_db_password_123</code>.
+rode o arquivo <code>customer_ddl.sql</code> no banco postgresql: acessivel em: <code>192.168.56.1:5432</code> nome da base <code>people_db</code> com senha e username iguais à <code>postgres</code></li>
+<li>Gere os modelos prisma: <code>cd ./apps/movie_microservice/ </code> e <code>npx prisma generate</code>(caso não funcione experimente instalar o prisma globalmente <code>npm install -g prisma</code> em seguida <code>cd ./apps/movie_microservice/ </code> e <code>prisma generate</code>)</li>
+<li>Execute em terminais diferentes: <code>npm run start-core</code> para rodar a api graphql, <code>npm run start-movie</code> para inciiar o serviço de filmes, e <code>npm run start-people</code> para iniciar o serviço de clientes</li>
+</ol>
+
+<a href="#documentação-da-api-graphql" id="documentação-da-api-graphql" style="color: inherit; text-decoration: none;">
+  <h3>Documentação da API GRAPHQL</h3>
+</a>
+<p>Você pode acessar a documentação publica da api no arquivo: <a href="./apps/umodb/docs/public/index.html">index.html</a> ( em breve online )
+Pode acessar a documentação das interfaces no arquivo: <a href="./apps/umodb/docs/private/index.html">index.html</a> (em breve online)</p>
+
+<a href="#task-progress" id="task-progress" style="color: inherit; text-decoration: none;">
+  <h2>Task Progress</h2>
+</a>
+<table>
+<thead>
+<tr>
+<th align="center">task</th>
+<th>read</th>
+<th>in codification</th>
+<th>in documentation</th>
+<th>in test</th>
+<th>done</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">create gateway resolvers</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">register operator</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️<a href="./docs/register-operator.md">Doc</a></td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td align="center">register movies</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td>✔️</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">update movies</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td>✔️</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">register actors</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">register stream plataform</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">update stream plataform catalog</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">register customer</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">update customer</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">like movie</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">unlike movie</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">create score movie</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">edit movie score</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">list actor reviews</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">create actor review</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">edit actor review</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">list basic review on movie</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">create basic review on movie</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">update basic review on movie</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">list comments on basic review</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">comment on basic review</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">edit commend on basic review</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">list full movie review</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">create full movie review</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">update full moview review</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<a href="#casos-de-uso" id="casos-de-uso" style="color: inherit; text-decoration: none;">
+  <h2>Casos de uso</h2>
+</a>
+
+<a href="#como-operador-do-sistema-eu-posso-me-cadastrar-no-sistema-e-gerenciar-meus-dados" id="como-operador-do-sistema-eu-posso-me-cadastrar-no-sistema-e-gerenciar-meus-dados" style="color: inherit; text-decoration: none;">
+  <h3>Como operador do sistema eu posso me cadastrar no sistema e gerenciar meus dados.</h3>
+</a>
+<p>Cada operador do sistema, tem nome email e senha</p>
+
+<a href="#como-operador-do-sistema-eu-posso-cadastrar-e-atualizar-filmes" id="como-operador-do-sistema-eu-posso-cadastrar-e-atualizar-filmes" style="color: inherit; text-decoration: none;">
+  <h3>Como operador do sistema eu posso cadastrar e atualizar filmes</h3>
+</a>
+<p>Cada filme tem um titulo, autor, plataforma de stream, e uma lista de atores</p>
+
+<a href="#como-operador-do-sistema-eu-posso-cadastrar-atores" id="como-operador-do-sistema-eu-posso-cadastrar-atores" style="color: inherit; text-decoration: none;">
+  <h3>Como operador do sistema eu posso cadastrar atores</h3>
+</a>
+<p>Cada ator tem um nome e uma data de nascimento</p>
+
+<a href="#como-operador-do-sistema-eu-posso-cadastrar-plataformas-onde-se-passam-os-filmes" id="como-operador-do-sistema-eu-posso-cadastrar-plataformas-onde-se-passam-os-filmes" style="color: inherit; text-decoration: none;">
+  <h3>Como operador do sistema eu posso cadastrar plataformas onde se passam os filmes</h3>
+</a>
+<p>Cada plataforma tem o seu nome e uma lista de filmes</p>
+
+<a href="#como-operador-do-sistema-eu-posso-remover-um-filme-do-catalogo-de-uma-plataforma" id="como-operador-do-sistema-eu-posso-remover-um-filme-do-catalogo-de-uma-plataforma" style="color: inherit; text-decoration: none;">
+  <h3>Como operador do sistema eu posso remover um filme do catalogo de uma plataforma</h3>
+</a>
+
+<a href="#como-cliente-eu-posso-me-cadastrar-no-sistema-e-gerenciar-meus-dados" id="como-cliente-eu-posso-me-cadastrar-no-sistema-e-gerenciar-meus-dados" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso me cadastrar no sistema e gerenciar meus dados.</h3>
+</a>
+<p>Cada cliente tem nome, email, senha, genero e data de nascimento</p>
+
+<a href="#como-cliente-eu-posso-gostar-ou-deixar-de-gostar-de-um-filme" id="como-cliente-eu-posso-gostar-ou-deixar-de-gostar-de-um-filme" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso gostar ou deixar de gostar de um filme.</h3>
+</a>
+
+<a href="#como-cliente-eu-posso-classificar-o-filme-de-1-a-5-estrelas" id="como-cliente-eu-posso-classificar-o-filme-de-1-a-5-estrelas" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso classificar o filme de 1 a 5 estrelas</h3>
+</a>
+
+<a href="#como-o-cliente-eu-posso-editar-minha-classificação-ou-apaga-la" id="como-o-cliente-eu-posso-editar-minha-classificação-ou-apaga-la" style="color: inherit; text-decoration: none;">
+  <h3>Como o cliente eu posso editar minha classificação ou apaga-la</h3>
+</a>
+
+<a href="#como-cliente-eu-posso-ver-as-reviews-feitas-a-um-ator-dentro-de-um-filme" id="como-cliente-eu-posso-ver-as-reviews-feitas-a-um-ator-dentro-de-um-filme" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso ver as reviews feitas a um ator dentro de um filme</h3>
+</a>
+<p>Cada review tem o nome do ator, o nome do filme, uma descrição de texto e o autor daquela postagem</p>
+
+<a href="#como-cliente-eu-posso-criar-e-editar-uma-review-sobre-um-ator" id="como-cliente-eu-posso-criar-e-editar-uma-review-sobre-um-ator" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso criar e editar uma review sobre um ator:</h3>
+</a>
+
+<a href="#como-cliente-eu-posso-listar-resenhas-já-feitas-em-um-determinado-filme" id="como-cliente-eu-posso-listar-resenhas-já-feitas-em-um-determinado-filme" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso listar resenhas já feitas em um determinado filme</h3>
+</a>
+<p>Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha</p>
+
+<a href="#como-cliente-eu-posso-escrever-uma-resenha-de-um-filme-ou-edita-la" id="como-cliente-eu-posso-escrever-uma-resenha-de-um-filme-ou-edita-la" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso escrever uma resenha de um filme ou edita-la.</h3>
+</a>
+<p>Cada resenha tem um titulo, descrição, data e hora de que foram postados além do nome do criador, uma lista de comentarios sobre a resenha</p>
+
+<a href="#como-cliente-eu-posso-ver-todos-os-comentarios-feitos-a-uma-revisão-basica" id="como-cliente-eu-posso-ver-todos-os-comentarios-feitos-a-uma-revisão-basica" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso ver todos os comentarios feitos a uma revisão basica</h3>
+</a>
+
+<a href="#como-cliente-eu-posso-responder-escrever-o-comentario-sobre-resenhas-já-feitas-em-um-filme" id="como-cliente-eu-posso-responder-escrever-o-comentario-sobre-resenhas-já-feitas-em-um-filme" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso responder (escrever o comentario) sobre resenhas já feitas em um filme</h3>
+</a>
+<p>Cada comentario tem uma descrição, e o nome do criador</p>
+
+<a href="#como-cliente-eu-posso-editar-um-comentario-feito-feito-sobre-uma-resenha" id="como-cliente-eu-posso-editar-um-comentario-feito-feito-sobre-uma-resenha" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso editar um comentario feito feito sobre uma resenha</h3>
+</a>
+
+<a href="#como-cliente-eu-posso-ler-avaliações-completas-sobre-um-filme" id="como-cliente-eu-posso-ler-avaliações-completas-sobre-um-filme" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso ler avaliações completas sobre um filme</h3>
+</a>
+<p>A avaliação completa tem:</p>
+<ul>
+<li><p>Um titulo</p>
+</li>
+<li><p>Descrição breve</p>
+</li>
+<li><p>Uma descrição sobre os pontos positivos (opcional)</p>
+</li>
+<li><p>Uma descrição sobre os pontos negativos (opcional)</p>
+</li>
+<li><p>Uma seção de topicos de avalição sobre o filme, onde cada topico será representado por:</p>
+<ul>
+<li>Titulo do topico, Exemplo: direção</li>
+<li>Uma avalição de 1 a 5 sobre o topico</li>
+</ul>
+</li>
+<li><p>Uma avaliação geral, calculada automaticamente pela formula: SOMATORIO_DAS_AVALIACOES_NOS_TOPICOS / QUANTIDADE_DE_TOPICOS</p>
+</li>
+</ul>
+
+<a href="#como-cliente-eu-posso-escrever-e-editar-avaliações-completas-sobre-um-filme" id="como-cliente-eu-posso-escrever-e-editar-avaliações-completas-sobre-um-filme" style="color: inherit; text-decoration: none;">
+  <h3>Como cliente eu posso escrever e editar avaliações completas sobre um filme</h3>
+</a>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Modules</a></li><li class=" tsd-kind-module"><a href="modules/adapter_connectors_create_operator_prisma_connector_ts.html">adapter/connectors/create-<wbr/>operator-<wbr/>prisma.connector.ts</a></li><li class=" tsd-kind-module"><a href="modules/adapter_connectors_kafka_publisher_connector.html">adapter/connectors/kafka-<wbr/>publisher.connector</a></li><li class=" tsd-kind-module"><a href="modules/adapter_decorators_inject_decorator.html">adapter/decorators/inject.decorator</a></li><li class=" tsd-kind-module"><a href="modules/adapter_service_operator_service.html">adapter/service/operator.service</a></li><li class=" tsd-kind-module"><a href="modules/core_models_create_operator_model.html">core/models/create-<wbr/>operator.model</a></li><li class=" tsd-kind-module"><a href="modules/core_models_creation_result_model.html">core/models/creation-<wbr/>result.model</a></li><li class=" tsd-kind-module"><a href="modules/core_models_operator_model.html">core/models/operator.model</a></li><li class=" tsd-kind-module"><a href="modules/core_models_update_operator_model.html">core/models/update-<wbr/>operator.model</a></li><li class=" tsd-kind-module"><a href="modules/core_protocols_event_publisher_protocol.html">core/protocols/event-<wbr/>publisher.protocol</a></li><li class=" tsd-kind-module"><a href="modules/core_protocols_orm_protocol.html">core/protocols/orm.protocol</a></li><li class=" tsd-kind-module"><a href="modules/core_protocols_register_operator_protocol_ts.html">core/protocols/register-<wbr/>operator.protocol.ts</a></li><li class=" tsd-kind-module"><a href="modules/core_strategies_register_operator_strategy_ts.html">core/strategies/register-<wbr/>operator.strategy.ts</a></li><li class=" tsd-kind-module"><a href="modules/core_usecases_register_operator_usecase_ts.html">core/usecases/register-<wbr/>operator.usecase.ts</a></li><li class=" tsd-kind-module"><a href="modules/infra_controllers_operator_controller.html">infra/controllers/operator.controller</a></li><li class=" tsd-kind-module"><a href="modules/infra_handler_prisma_handler.html">infra/handler/prisma.handler</a></li><li class=" tsd-kind-module"><a href="modules/infra_nestjs_movie_microservice_module.html">infra/nestjs/movie_<wbr/>microservice.module</a></li><li class=" tsd-kind-module"><a href="modules/infra_pipes_get_kafka_message_value_pipe.html">infra/pipes/get-<wbr/>kafka-<wbr/>message-<wbr/>value.pipe</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li><li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

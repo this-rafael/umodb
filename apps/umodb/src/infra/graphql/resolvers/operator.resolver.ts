@@ -6,6 +6,7 @@ import { MutationResultPromiseObjectType } from '../dtos/mutation-result-promise
 import { OperatorObjectType } from '../dtos/operator.object-type'
 import { SubscriptionUniqueIdObjectType } from '../dtos/subscription-unique-id.object-type'
 import { KafkaPubSubProvider } from '../../kafka/kafka-pub-sub.provider'
+import { ResolverDescriptions } from '../resolver-descriptions.enum'
 
 @Resolver()
 export class OperatorResolver {
@@ -14,7 +15,9 @@ export class OperatorResolver {
     private readonly pubSub: KafkaPubSubProvider,
   ) {}
 
-  @Mutation(() => MutationResultPromiseObjectType)
+  @Mutation(() => MutationResultPromiseObjectType, {
+    description: ResolverDescriptions.REGISTER_OPERATOR,
+  })
   async registerOperator(
     @Args({ name: 'subscriptionId', type: () => String })
     subscriptionId: string,
