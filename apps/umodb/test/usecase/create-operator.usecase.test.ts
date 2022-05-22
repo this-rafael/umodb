@@ -7,10 +7,7 @@ import { CreateOperatorStrategy } from '../../src/core/strategies/create-operato
 import { EventPublisherProtocol } from '../../src/core/protocols/event-publisher.protocol'
 import { CalculateMaxWaitingTimeProtocol } from '../../src/core/protocols/calculate-max-waiting-time.protocol'
 import { CalculateMaxWaitingTimeConnector } from '../../src/adapter/connectors/calculate-max-waiting-time.connector'
-import {
-  getProvider,
-  getMockedProvider,
-} from '../../../../libs/provider-generation-functions/src'
+import { Generate } from '../../../../libs/provider-generation-functions/src'
 
 /**
  * Test CreateOperatorUsecase class And CreateOperatorStrategy class
@@ -22,13 +19,16 @@ describe('CreateOperatorUsecase', () => {
   before(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        getProvider(CreateOperatorStrategy, CreateOperatorUsecase),
-        getMockedProvider<EventPublisherProtocol>(EventPublisherProtocol, {
-          async send({ subscriptionId, data, topic }) {
-            return []
+        Generate.provider(CreateOperatorStrategy, CreateOperatorUsecase),
+        Generate.mockedProvider<EventPublisherProtocol>(
+          EventPublisherProtocol,
+          {
+            async send({ subscriptionId, data, topic }) {
+              return []
+            },
           },
-        }),
-        getProvider(
+        ),
+        Generate.provider(
           CalculateMaxWaitingTimeProtocol,
           CalculateMaxWaitingTimeConnector,
         ),

@@ -28,11 +28,12 @@ import { CalculateMaxWaitingTimeProtocol } from '../../core/protocols/calculate-
 import { GetPubSubProtocol } from '../../core/protocols/pubsub-connection.protocol'
 import { GetKafkaPubSubConnector } from '../../adapter/connectors/get-kafka-pub-sub.connector'
 import { KafkaPubSubProvider } from '../kafka/kafka-pub-sub.provider'
+import { CreateMovieStrategy } from '../../core/strategies/create-movie.strategy'
+import { CreateMovieUsecase } from '../../core/usecases/create-movie.usecase'
+import { MovieService } from '../../adapter/service/movie.service'
 
 export function getMicroServiceConnections(): ClientsModuleOptions {
   const response: ClientsModuleOptions = []
-
-  console.log('global', GlobalEnv.instance)
 
   if (GlobalEnv.instance.useKafka) {
     response.push({
@@ -58,6 +59,7 @@ function getProvider(): Provider[] {
     MovieResolver,
     CustomerResolver,
     OperatorService,
+    MovieService,
     {
       provide: SubscriptionUniqueIDStrategy,
       useClass: SubscriptionUniqueIDUsecase,
@@ -69,6 +71,10 @@ function getProvider(): Provider[] {
     {
       provide: CreateOperatorStrategy,
       useClass: CreateOperatorUsecase,
+    },
+    {
+      provide: CreateMovieStrategy,
+      useClass: CreateMovieUsecase,
     },
     {
       provide: EventPublisherProtocol,

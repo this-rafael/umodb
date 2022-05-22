@@ -1,4 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { MovieService } from '../../../adapter/service/movie.service'
 import { ActorReviewObjectType } from '../dtos/actor-review.object-type'
 import { CommentOnReviewObjectType } from '../dtos/comment-of-review.object-type'
 import { CreateMovieScoreInputType } from '../dtos/create-movie-score.input-type'
@@ -8,32 +9,22 @@ import { FullMovieReviewObjectType } from '../dtos/full-movie-review.object-type
 import { MovieInfoByCustumerObjectType } from '../dtos/movie-info-by-customer.object-type'
 import { MovieScoreObjectType } from '../dtos/movie-score.object-type'
 import { MovieObjectType } from '../dtos/movie.object-type'
+import { MutationResultPromiseObjectType } from '../dtos/mutation-result-promise.object-type'
 import { BasicReviewObjectType } from '../dtos/review.object-type'
 import { UpdateMovieScoreInputType } from '../dtos/update-movie-score.input-type'
 import { UpdateMovieInputType } from '../dtos/update-movie.input-type'
 
 @Resolver()
 export class MovieResolver {
+  constructor(private readonly movieService: MovieService) {}
+
   @Mutation(() => MovieObjectType)
   async registerMovie(
+    @Args({ name: 'subscriptionId', type: () => String })
+    subscriptionId: string,
     @Args('movie') movie: CreateMovieInputType,
-  ): Promise<MovieObjectType> {
-    console.log(movie)
-    return new MovieObjectType({
-      externalId: '123',
-      addedBy: {
-        externalId: '123',
-        name: '',
-        email: '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      authorName: '',
-      createdAt: new Date(),
-      title: '',
-      updatedAt: new Date(),
-      editedBy: { externalId: '123' },
-    })
+  ): Promise<MutationResultPromiseObjectType> {
+    return this.movieService.registerMovie(movie, subscriptionId)
   }
 
   @Mutation(() => MovieObjectType)

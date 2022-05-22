@@ -35,8 +35,8 @@ Pode acessar a documentação das interfaces no arquivo: [index.html](./apps/umo
 | :-----------------------------: | ---- | --------------- | ------------------------------------ | ------- | ---- |
 |    create gateway resolvers     | ✔️   | ✔️              | ✔️                                   |         |      |
 |        register operator        | ✔️   | ✔️              | ✔️[Doc](./docs/register-operator.md) | ✔️      | ✔️   |
-|         register movies         | ✔️   |                 |                                      | ✔️      |      |
-|          update movies          | ✔️   |                 |                                      |         |      |
+|         register movies         | ✔️   | ✔️              |                                      | ✔️      |      |
+|          update movies          | ✔️   |                 |                                      | ✔️      |      |
 |         register actors         | ✔️   |                 |                                      |         |      |
 |    register stream plataform    | ✔️   |                 |                                      |         |      |
 | update stream plataform catalog | ✔️   |                 |                                      |         |      |

@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { stub } from 'sinon'
 import { faker } from '@faker-js/faker'
 import { Producer } from '@nestjs/microservices/external/kafka.interface'
-import { getProvider } from '../../../../libs/provider-generation-functions/src'
+import { Generate } from '../../../../libs/provider-generation-functions/src'
 import { EventPublisherProtocol } from '../../src/core/protocols/event-publisher.protocol'
 import { KafkaPublisherConnector } from '../../src/adapter/connectors/kafka-publisher.connector'
 
@@ -29,7 +29,7 @@ describe('EventPublisherProtocol', () => {
   before(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        getProvider(EventPublisherProtocol, KafkaPublisherConnector),
+        Generate.provider(EventPublisherProtocol, KafkaPublisherConnector),
         {
           provide: 'KAFKA_PRODUCER',
           useValue: {

@@ -1,13 +1,10 @@
 import { expect } from 'chai'
 import { faker } from '@faker-js/faker'
-import { stub } from 'sinon'
 import { Test, TestingModule } from '@nestjs/testing'
 import { CreateMovieUsecase } from '../../src/core/usecases/create-movie.usecase'
 import { CreateMovieStrategy } from '../../src/core/strategies/create-movie.strategy'
-import {
-  getProvider,
-  getMockedProvider,
-} from '../../../../libs/provider-generation-functions/src'
+
+import { Generate } from '../../../../libs/provider-generation-functions/src'
 import { CalculateMaxWaitingTimeConnector } from '../../src/adapter/connectors/calculate-max-waiting-time.connector'
 import { CalculateMaxWaitingTimeProtocol } from '../../src/core/protocols/calculate-max-waiting-time.protocol'
 import { EventPublisherProtocol } from '../../src/core/protocols/event-publisher.protocol'
@@ -28,13 +25,16 @@ describe('CreateMovieUsecase Test', () => {
   before(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        getProvider(CreateMovieStrategy, CreateMovieUsecase),
-        getMockedProvider<EventPublisherProtocol>(EventPublisherProtocol, {
-          async send({ subscriptionId, data, topic }) {
-            return []
+        Generate.provider(CreateMovieStrategy, CreateMovieUsecase),
+        Generate.mockedProvider<EventPublisherProtocol>(
+          EventPublisherProtocol,
+          {
+            async send({ subscriptionId, data, topic }) {
+              return []
+            },
           },
-        }),
-        getProvider(
+        ),
+        Generate.provider(
           CalculateMaxWaitingTimeProtocol,
           CalculateMaxWaitingTimeConnector,
         ),

@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 
 import { CalculateMaxWaitingTimeProtocol } from '../../src/core/protocols/calculate-max-waiting-time.protocol'
 import { CalculateMaxWaitingTimeConnector } from '../../src/adapter/connectors/calculate-max-waiting-time.connector'
-import { getProvider } from '../../../../libs/provider-generation-functions/src'
+import { Generate } from '../../../../libs/provider-generation-functions/src'
 
 /**
  * Test CalculateMaxWaitingTimeConnector class and CalculateMaxWaitingTimeProtocol class
@@ -16,7 +16,7 @@ describe('CalculateMaxWaitingTimeProtocol', () => {
   before(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        getProvider(
+        Generate.provider(
           CalculateMaxWaitingTimeProtocol,
           CalculateMaxWaitingTimeConnector,
         ),
