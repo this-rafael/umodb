@@ -11,13 +11,14 @@ import { OrmProtocol } from '../../core/protocols/orm.protocol'
  * This class shouldn't be used directly by core layer members.
  * This class only be used by the adapter layer and infra layer.
  */
-export class PrismaHandler
-  extends PrismaClient
-  implements OrmProtocol, OnModuleInit
-{
+export class PrismaHandler extends PrismaClient implements OnModuleInit {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   async onModuleInit() {
     await this.$connect()
+  }
+
+  constructor() {
+    super()
   }
 
   async enableShutdownHooks(app: INestApplication): Promise<void> {

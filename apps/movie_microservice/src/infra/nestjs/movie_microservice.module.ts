@@ -10,48 +10,62 @@ import { EventPublisherProtocol } from '../../core/protocols/event-publisher.pro
 import { CreateOperatorStrategy } from '../../core/strategies/register-operator.strategy.ts'
 import { CreateOperatorUsecase } from '../../core/usecases/register-operator.usecase.ts'
 import { OperatorController } from '../controllers/operator.controller'
+import {
+  Generate,
+  StrategyAnalyzer,
+} from '../../../../../libs/provider-generation-functions/src'
+import { EnvironmentModel } from '../../../../../libs/shared-env/src'
 
 @Module({
   imports: [
-    ClientsModule.register([
-      {
-        name: 'KAFKA_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            brokers: ['localhost:9094'],
-          },
-          consumer: {
-            groupId: `movie-producer${Math.random()}`,
-          },
-        },
-      },
-    ]),
+    // ClientsModule.register([
+    //   {
+    //     name: 'KAFKA_SERVICE',
+    //     transport: Transport.KAFKA,
+    //     options: {
+    //       client: {
+    //         brokers: [EnvironmentModel.vars.KAFKA_BROKER_URL],
+    //       },
+    //       consumer: {
+    //         groupId: `movie-producer${Math.random()}`,
+    //       },
+    //     },
+    //   },
+    // ]),
   ],
-  controllers: [OperatorController],
+  controllers: [
+    /* OperatorController */
+  ],
   providers: [
-    {
-      provide: 'KAFKA_PRODUCER',
-      useFactory: async (kafkaService: ClientKafka): Promise<Producer> => {
-        return kafkaService.connect()
-      },
-      inject: ['KAFKA_SERVICE'],
-    },
-    PrismaHandler,
-
-    OperatorService,
-    {
-      provide: CreateOperatorStrategy,
-      useClass: CreateOperatorUsecase,
-    },
-    {
-      provide: RegisterOperatorProtocol,
-      useClass: CreateOperatorPrismaConnector,
-    },
-    {
-      provide: EventPublisherProtocol,
-      useClass: KafkaPublisherConnector,
-    },
+    // PrismaHandler,
+    // {
+    //   provide: 'KAFKA_PRODUCER',
+    //   useFactory: async (kafkaService: ClientKafka): Promise<Producer> => {
+    //     return kafkaService.connect()
+    //   },
+    //   inject: ['KAFKA_SERVICE'],
+    // },
+    // PrismaHandler,
+    // OperatorService,
+    // ...Generate.strategyProvider(
+    //   {
+    //     token: 'StrategyAnalyzer',
+    //     factory: (usecase: CreateOperatorUsecase) => {
+    //       return new StrategyAnalyzer<CreateOperatorStrategy>({
+    //         usecase,
+    //       })
+    //     },
+    //   },
+    //   CreateOperatorUsecase,
+    // ),
+    // {
+    //   provide: RegisterOperatorProtocol,
+    //   useClass: CreateOperatorPrismaConnector,
+    // },
+    // {
+    //   provide: EventPublisherProtocol,
+    //   useClass: KafkaPublisherConnector,
+    // },
   ],
 })
 export class MovieMicroserviceModule {}

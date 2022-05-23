@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { KafkaTopic } from '../../../../../libs/kafka-topics/src/kafka-topics.enum'
 import { Decorators } from '../../adapter/decorators/inject.decorator'
 import { CreateOperatorModel } from '../models/create-operator.model'

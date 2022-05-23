@@ -4,6 +4,23 @@ export const Decorators = {
   Inject: Injectable,
 }
 
+export type Matchers<L> = {
+  [key: string | symbol]: L
+}
+
+@Decorators.Inject()
+export class StrategyAnalyzer<L> {
+  constructor(private readonly matchers: Matchers<L>) {}
+
+  analyze(context: string | symbol): L {
+    const matcher = this.matchers[context]
+    if (matcher) {
+      return matcher
+    }
+    throw new Error('Strategy not found')
+  }
+}
+
 export const Generate = {
   useValue<T>(subClass: T): { useValue: T } {
     return {
@@ -27,21 +44,24 @@ export const Generate = {
       useClass: s,
     }
   },
-}
 
-export type Matchers<L> = {
-  [key: string | symbol]: L
-}
-
-@Decorators.Inject()
-export class StrategyAnalyzer<L> {
-  constructor(private readonly matchers: Matchers<L>) {}
-
-  analyze(context: string | symbol): L {
-    const matcher = this.matchers[context]
-    if (matcher) {
-      return matcher
+  strategyProvider<T>(
+    {
+      token,
+      factory,
+    }: {
+      token: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      factory: (...types: T[]) => StrategyAnalyzer<T>
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...injections: Type<T>[]
+  ): Provider<unknown>[] {
+    const strategy = {
+      provide: token,
+      inject: injections,
+      useFactory: factory,
     }
-    throw new Error('Strategy not found')
-  }
+    return [strategy, ...injections]
+  },
 }

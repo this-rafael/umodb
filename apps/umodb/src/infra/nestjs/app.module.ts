@@ -13,7 +13,7 @@ import { OperatorResolver } from '../graphql/resolvers/operator.resolver'
 import { MovieResolver } from '../graphql/resolvers/movie.resolver'
 import { CustomerResolver } from '../graphql/resolvers/customer.resolver'
 import { OperatorService } from '../../adapter/service/operator.service'
-import { GlobalEnv } from '../global.env.model'
+
 import { SubscriptionUniqueIDStrategy } from '../../core/strategies/produce-subscription-unique-id.strategy.ts'
 import { SubscriptionUniqueIDUsecase } from '../../core/usecases/produce-subscription-unique-id.usecase.ts'
 import { SubscriptionUniqueIDConnector } from '../../adapter/connectors/produce-subscription-unique-id.connector.ts'
@@ -31,17 +31,18 @@ import { KafkaPubSubProvider } from '../kafka/kafka-pub-sub.provider'
 import { CreateMovieStrategy } from '../../core/strategies/create-movie.strategy'
 import { CreateMovieUsecase } from '../../core/usecases/create-movie.usecase'
 import { MovieService } from '../../adapter/service/movie.service'
+import { EnvironmentModel } from '../../../../../libs/shared-env/src'
 
 export function getMicroServiceConnections(): ClientsModuleOptions {
   const response: ClientsModuleOptions = []
 
-  if (GlobalEnv.instance.useKafka) {
+  if (EnvironmentModel.vars.USE_KAFKA) {
     response.push({
       name: 'KAFKA_SERVICE',
       transport: Transport.KAFKA,
       options: {
         client: {
-          brokers: ['localhost:9094'],
+          brokers: [EnvironmentModel.vars.KAFKA_BROKER_URL],
         },
         consumer: {
           groupId: `umodb-producer-${Math.random()}`,
@@ -90,7 +91,7 @@ function getProvider(): Provider[] {
     },
   ]
 
-  if (GlobalEnv.instance.useKafka) {
+  if (EnvironmentModel.vars.USE_KAFKA) {
     const provider = {
       provide: 'KAFKA_PRODUCER',
       useFactory: async (kafka: ClientKafka): Promise<Producer> => {

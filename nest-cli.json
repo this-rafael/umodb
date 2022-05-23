@@ -69,6 +69,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/provider-generation-functions/tsconfig.lib.json"
       }
+    },
+    "shared-env": {
+      "type": "library",
+      "root": "libs/shared-env",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared-env/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared-env/tsconfig.lib.json"
+      }
     }
   }
 }

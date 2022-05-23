@@ -6,7 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES5",
+    "target": "ESNext",
     "sourceMap": true,
     "outDir": "./dist",
     "incremental": true,
@@ -37,7 +37,9 @@
       ],
       "@app/provider-generation-functions/*": [
         "libs/provider-generation-functions/src/*"
-      ]
+      ],
+      "@app/shared-env": ["libs/shared-env/src"],
+      "@app/shared-env/*": ["libs/shared-env/src/*"]
     }
   }
 }
