@@ -1,0 +1,7 @@
+version: '3'
+services:
+  gen-sonar:
+    image: sonarqube:8.2-community
+    container_name: umodb_sonar
+    ports:
+      - '9001:9000'
