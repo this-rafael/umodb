@@ -15,6 +15,7 @@ import { EventPublisherProtocol } from '../../src/core/protocols/event-publisher
  *    expectedResultAt: the expected result of the create movie usecase is equals to the createdAt + 5 seconds
  *    createdAt: the createdAt of the create movie usecase is equals to the current time
  * When EventPublisherProtocol returns and array with errorCode equals to 1, the create movie usecase returns an Error with message PublishEventError
+ *.
  */
 describe('CreateMovieUsecase Test', () => {
   let createMovieStrategy: CreateMovieStrategy
